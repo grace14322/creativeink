@@ -1,0 +1,128 @@
+/*********Boiler Plate*************/
+* { padding: 0px; margin: 0px; font-family: "open_sansregular"; }
+
+/*
+*
+* Flex align class Property
+*
+*/
+.Aligner { display: flex; align-items: center; justify-content: center; }
+
+.Aligner-item { max-width: 50%; }
+
+.Aligner-item--top { align-self: flex-start; }
+
+.Aligner-item--bottom { align-self: flex-end; }
+
+/*
+*
+* Navbar Property
+*
+*/
+.navbar { padding-bottom: 3px; }
+
+.navbar-custom { background-color: #1ca3a0; border-color: #17c9c5; }
+
+.navbar-custom .navbar-nav > li > a { color: #FFF; }
+
+.navbar-custom .navbar-nav > li:hover { background-color: #FFF; }
+
+.navbar-custom .navbar-nav > li:hover > a { color: #FFF; }
+
+.nav > li > a:hover, .nav > li > a:focus { text-decoration: none; background-color: #17c9c5; }
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus { background-color: #17c9c5; border-color: none; }
+
+.navbar-brand { float: left; height: 50px; padding: 5px 15px; font-size: 18px; line-height: 20px; }
+
+/*
+*
+* Footer Property
+*
+*/
+html { position: relative; min-height: 100%; }
+
+body { /* Margin bottom by footer height */ margin-bottom: 0px; }
+
+.footer { position: absolute; bottom: 0; width: 100%; height: 0px; background-color: #343434; color: #fff; padding: 10px; }
+
+/**Custom Stylesheet**/
+ul.left-nav { padding-top: 15px; }
+ul.left-nav li { list-style: none; float: left; }
+ul.left-nav li:nth-child(2) { padding-top: 10px; padding-left: 5px; color: #fff; }
+ul.left-nav .brand-logo { max-width: 45px; max-height: 45px; padding-top: 3px; }
+ul.left-nav .brand-logo img { max-width: 45px; max-height: 45px; }
+
+.logout { padding: 15px 0px 0px 20px; }
+
+ul.right-nav { float: right; }
+ul.right-nav li { list-style: none; color: #fff; padding-top: 10px; margin-right: 5px; }
+ul.right-nav li > a { text-decoration: none; color: #fff; }
+ul.right-nav li:nth-child(3) { margin-left: 20px; }
+
+.profile-pic { max-height: 68px; max-width: 68px; }
+
+.main-container { margin-top: 120px; }
+
+section.login { height: 100vh; }
+section.login div.login-holder { min-width: 0px; min-height: 80px; border: solid 1px #ededed; padding: 0px 0px 16px 0px; }
+
+.img-logo-holder { max-width: 120px; max-height: 120px; margin: 0px auto; }
+
+.input-login { width: 90%; border: 0px none; float: right; margin: 0px 11px 0px 0px; }
+
+.btn-login { padding: 10px; margin-top: 10px; margin-bottom: 25px; background-color: #1D8B88; border: 1px solid #269390; width: 100%; color: #fff; }
+
+.btn-login:hover { background-color: #1ca3a0; }
+
+.btn-login:active { background-color: #177270; }
+
+.group-field { padding-top: 10px; padding-left: 10px; }
+
+.line { border-bottom: solid 1px #ededed; margin-top: 25px; }
+
+p.login-welcome { margin-bottom: 25px; }
+
+div.product-menu-list div.product { border: solid 1px #f4f4f4; border-radius: 5px; margin: 3px; }
+div.product-menu-list div.product:hover { box-shadow: 5px 5px 11px #F3F0F0; }
+
+article { padding: 10px; }
+
+.table-product { margin-top: 20px; }
+
+.main-box.no-header { padding-top: 20px; }
+
+.cart-list { min-height: 480px; }
+
+.main-box { background: #FFFFFF; -webkit-box-shadow: 1px 1px 2px 0 #CCCCCC; -moz-box-shadow: 1px 1px 2px 0 #CCCCCC; -o-box-shadow: 1px 1px 2px 0 #CCCCCC; -ms-box-shadow: 1px 1px 2px 0 #CCCCCC; box-shadow: 1px 1px 2px 0 #CCCCCC; margin-bottom: 16px; -webikt-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+
+.table a.table-link.danger { color: #e74c3c; }
+
+.label { border-radius: 3px; font-size: 0.875em; font-weight: 600; }
+
+.user-list tbody td .user-subhead { font-size: 0.875em; font-style: italic; }
+
+.user-list tbody td .user-link { display: block; font-size: 1.25em; padding-top: 3px; margin-left: 60px; }
+
+a { outline: none !important; }
+
+.user-list tbody td > img { position: relative; max-width: 50px; float: left; margin-right: 15px; }
+
+.table thead tr th { text-transform: uppercase; font-size: 0.875em; }
+
+.table thead tr th { border-bottom: 2px solid #e7ebee; }
+
+.table tbody tr td:first-child { font-size: 1.125em; font-weight: 300; }
+
+.table tbody tr td { font-size: 0.875em; vertical-align: middle; border-top: 1px solid #e7ebee; padding: 12px 8px; }
+
+#pass-label, #general-label { cursor: pointer; }
+
+#receiptContent { min-height: 480px; font-size: 12px; }
+#receiptContent .logo-receipt { max-width: 80px; margin: 0px auto; }
+
+.side-menu { text-decoration: none; color: #2f2f2f; }
+
+.side-menu:hover { text-decoration: none; }
+
+/*# sourceMappingURL=style.css.map */
