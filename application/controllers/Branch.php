@@ -52,7 +52,7 @@ class Branch extends CI_Controller {
         {
                 $_SESSION['error-message'] = validation_errors();
         }else{
-            $sql = $this->db->query("select * from branch where br_name LIKE '%".$_POST['branchname']."%' AND br_address LIKE '%".$_POST['address']."%'");
+            $sql = $this->db->query("select * from branch where br_address LIKE '%".$_POST['address']."%'");
             $numrows = $sql->num_rows();
             if($numrows == 0):
                  $data = [
@@ -65,7 +65,7 @@ class Branch extends CI_Controller {
                 header('location:'.base_url().'branch');
                 exit(0);
             else:
-                 $_SESSION['error-message']= "Branch already added or has similar branch name/address";
+                 $_SESSION['error-message']= "Branch already added or has similar branch address";
             endif;
         }
 
@@ -132,11 +132,10 @@ class Branch extends CI_Controller {
         {
                 $_SESSION['error-message'] = validation_errors();
         }else{
-            $sql = $this->db->query("select * from branch where br_name LIKE '%".$_POST['branchname']."%' AND br_address NOT LIKE '%".$_POST['address']."%'");
+            $sql = $this->db->query("select * from branch where br_address LIKE '%".$_POST['address']."%'");
             $numrows = $sql->num_rows();
             if($numrows == 0):
-								echo 'test';
-						$data = [
+            $data = [
              'br_name'      => $_POST['branchname'],
              'br_address'  => $_POST['address'],
             ];
@@ -149,7 +148,7 @@ class Branch extends CI_Controller {
 						header('location: '.base_url().'branch/view?id='.$_POST['id']);
 						exit(0);
             else:
-                 $_SESSION['error-message']= "Branch has almost same details or has similar branch name/address";
+                 $_SESSION['error-message']= "Branch has almost same details or has similar branch address";
             endif;
         }
 

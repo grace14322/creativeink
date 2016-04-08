@@ -127,7 +127,6 @@ class Transaction extends CI_Controller {
 						'cu_id' => 0,
 						'br_id' => $this->session->userdata('br_id'),
 						'tr_details' => '',
-						'is_voided' => 0,
 						'total'	=> $total,
 			];
 

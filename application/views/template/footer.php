@@ -100,12 +100,13 @@
     });
     </script>
     <!-- DataTables JavaScript -->
-<script src="<?php echo base_url(); ?>plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url(); ?>plugins/datatables-responsive/js/dataTables.responsive.js"></script>
+    <!-- Datatables -->
+    <script src="<?php echo base_url() ?>plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url() ?>plugins/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>plugins/jQuery.print-master/jQuery.print.js"></script>
 <script>
 $(document).ready(function() {
-    $('#dataTables-productss').DataTable();
+    $('#photo-list').DataTable();
 });
 </script>
 <script src="<?php echo base_url(); ?>js/custom.js"></script>
@@ -128,6 +129,19 @@ $(document).ready(function() {
             cash:'',
             changedue:'',
         },
+       computed: {
+            // a computed getter
+            changedue: function () {
+              // `this` points to the vm instance
+              var total = 0;
+              var x = this.cash - this.total;
+                if((!(x < 0))){
+                    total = x;
+                }
+
+                return total ;
+            }
+       },
         methods:{
             addItem:function(){
                   var temp_pr_id = this.tpr_id;
@@ -178,7 +192,8 @@ $(document).ready(function() {
                 this.$http.get('<?php base_url() ?>transaction/voidItem',{password:this.tpassword, br_id:this.br_id},function(result){
                     var message = '';
                     if(result == 0){
-                        message = "Invalid Manager's Password";
+                       $('#messageContent').html('Incorrect Password!');
+                       $('#messageItem').modal('show');
                     }else{
                         this.voidHide = '';
                         this.hideThis = 'hidden';
@@ -189,9 +204,11 @@ $(document).ready(function() {
             saveTransaction:function(){
 
               this.$http.get('<?php base_url() ?>transaction/store',{transaction_id:'a1sf1aa1f5sa16', items: this.items, total:this.total}, function(result){
-                   if(result == 1){
+                  if(result == 1){
                           $('#transaction_stats').modal('show');
+                            console.log(result);
                    }
+
               })
             },
             proceedCheckOut:function(){
@@ -211,9 +228,19 @@ $(document).ready(function() {
             },
             checkout:function(){
               // window.print();
-              $('#receiptModal').modal('show');
+            var x = this.cash < this.total;
+
+            if(x){
+                 $('#messageContent').html('Invalid amount of cash');
+                $('#messageItem').modal('show');
+             }else{
+                $('#receiptModal').modal('show');
+
+             }
+
             },
             printreceipt:function(){
+                self = this;
               $("#print-holder").print({
                         globalStyles: true,
                         mediaPrint: false,
@@ -228,7 +255,14 @@ $(document).ready(function() {
                             title: null,
                             doctype: '<!doctype html>'
                 });
-                this.saveTransaction();
+
+                self.saveTransaction();
+                this.items = [];
+                this.cash = '';
+                $('#messageItem').modal('show');
+                $('#checkoutModal').modal('hide');
+                $('#receiptModal').modal('hide');
+                $('#messageContent').html('Transaction Success');
             },
             removeItem:function(item){
                 this.items.splice(item,1);

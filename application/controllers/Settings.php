@@ -14,6 +14,7 @@ class Settings extends CI_Controller{
 
     public function updateinfo()
     {
+
         $this->loadhelper();
         $this->load->library('form_validation');
         $this->load->library('session');
@@ -23,10 +24,26 @@ class Settings extends CI_Controller{
 
         $this->form_validation->set_rules('fname', 'First Name', 'required');
         $this->form_validation->set_rules('lname', 'Last Name', 'required|alpha');
-        $this->form_validation->set_rules('email', 'E-Mail', 'required|valid_email');
+        $sqlx = $this->db->query("SELECT * from users where user_id = ".$this->session->userdata('user_id'));
+        $rownum = $sqlx->num_rows();
+        $emailx = $sqlx->row();
+        $callback = '';
+        if($_POST['email'] != $emailx->email){
+               $callback = '|callback_email_check';
+        }
+
+        $this->form_validation->set_rules('email', 'E-Mail', 'required|valid_email'.$callback);
+
         $this->form_validation->set_rules('gender', 'Gender', 'required');
+        $sqly = $this->db->query("SELECT * from users where user_id = ".$this->session->userdata('user_id'));
+        $rownum = $sqly->num_rows();
+        $usernamex = $sqly->row();
+        $callback = '';
+        if($_POST['username'] != $usernamex->username){
+               $callback = '|callback_username_check';
+        }
         if ($this->session->userdata('is_admin') ){
-            $this->form_validation->set_rules('username', 'Username', 'required');
+            $this->form_validation->set_rules('username', 'Username', 'required'.$callback);
         }
                 if ($this->form_validation->run() == FALSE)
         {
@@ -68,10 +85,41 @@ class Settings extends CI_Controller{
         header('location:'.base_url().'settings');
     }
 
+  public function email_check($email) {
+    $this->loadhelper();
+     $sql = $this->db->query("SELECT * from users where email ='".$email."' ");
+     $numrow = $sql->num_rows();
+        if($numrow != 0){
+            $this->form_validation->set_message('email_check', 'This {field} already exists');
+            return false;
+        }else{
+            return true;
+        }
+   }
+public function username_check($username) {
+    $this->loadhelper();
+     $sql = $this->db->query("SELECT * from users where username ='".$username."' ");
+     $numrow = $sql->num_rows();
+        if($numrow != 0){
+            $this->form_validation->set_message('username_check', 'This {field} already exists');
+            return false;
+        }else{
+            return true;
+        }
+   }
     public function updatepassword()
     {
         $this->loadhelper();
+        $this->load->library('session');
 
+        $password = $_POST['npass'];
+
+        if(strlen($password) > 20) {
+             $message = 'Password is too long, the maximum characters is 20';
+             $message = $this->session->set_flashdata('error-message', $message);
+            header('location:'.base_url().'settings');
+            exit(1);
+            }
 
         $cpassword = md5($_POST['cpass']);
         $npassword = md5($_POST['npass']);
@@ -84,22 +132,20 @@ class Settings extends CI_Controller{
 
         if($cpassword != $info->password){
             $message = 'Oops! Invalid password.';
-            $message = $this->session->set_flashdata('error', $message);
+            $message = $this->session->set_flashdata('error-message', $message);
             header('location:'.base_url().'settings');
             exit(1);
         }
-
 
         if($cpassword == $npassword){
             $message = 'Oops! it looks like you have an error';
-            $message = $this->session->set_flashdata('error', $message);
+            $message = $this->session->set_flashdata('error-message', $message);
             header('location:'.base_url().'settings');
             exit(1);
         }
-
         if($npassword != $vpassword){
             $message = 'Oops! New Password and Confirm password did not match.';
-            $message = $this->session->set_flashdata('error', $message);
+            $message = $this->session->set_flashdata('error-message', $message);
             header('location:'.base_url().'settings');
             exit(1);
         }
@@ -132,7 +178,6 @@ class Settings extends CI_Controller{
 
         header('location:'.base_url().'settings');
 
-
     }
 
     protected function loadhelper(){
@@ -148,7 +193,7 @@ class Settings extends CI_Controller{
             redirect('/');
         }
        if($this->session->userdata('ustype_id') == 3){
-            redirect('transaction');
-        }
+             redirect('transaction');
+       }
     }
 }

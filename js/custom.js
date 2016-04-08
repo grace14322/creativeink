@@ -8,7 +8,7 @@ var s=today.getSeconds();
 m=checkTime(m);
 s=checkTime(s);
 document.getElementById('txt').innerHTML="<b>Time: </b>" + formatAMPM(h+":"+m+":"+s);
-//console.log();    
+//console.log();
 t=setTimeout(function(){startTime()},500);
 }
 
@@ -30,7 +30,7 @@ function formatAMPM(date) {
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
   minutes = minutes < 10 ? '0'+minutes : minutes;
-  seconds = seconds < 10 ? '0'+seconds : seconds;      
+  seconds = seconds < 10 ? '0'+seconds : seconds;
   var strTime = hours + ':' + minutes +':'+ seconds + ' ' + ampm;
   return strTime;
 }
@@ -47,17 +47,17 @@ $('#general-label').click(function(){
 });
 
 $('#npass').keyup(function(){
-    
+
 //    var npass = $('#npass').val().length;
 //     var vpass = $('#vpass').val();
-    if($('#npass').val().length > 19){
-        
+    if($('#npass').val().length > 20){
+
            $('#npass-notif').html('Your password is too long!');
     }else{
         $('#npass-notif').html('');
         if($('#vpass').val() === ''){
            $('#vpass-notif').html('');
-            
+
         }else{
             console.log('true');
              if($('#vpass').val() != $('#npass').val()){
@@ -73,30 +73,36 @@ $('#npass').keyup(function(){
 $('#vpass').keyup(function(){
 //    var vpass = $('#vpass').val();
 //    var npass = $('#npass').val();
-   
+
     if($('#vpass').val() == ''){
            $('#vpass-notif').html('');
     }else{
          if($('#vpass').val() != $('#npass').val()){
-        
+
            $('#vpass-notif').html('Your password did not match!');
         }else{
             $('#vpass-notif').html('');
         }
-    }   
+    }
 })
 
 $('#productquantity').keypress(function (event) {
             return isInteger(event, this)
 });
+$('#quantityToAdd').keypress(function (event) {
+            return isInteger(event, this)
+});
+$('#setQuantity').keypress(function (event) {
+            return isInteger(event, this)
+});
 $('#productprice').keypress(function (event) {
-            return isNumber(event, this) 
+            return isNumber(event, this)
 }).blur(function(){
     var price = parseFloat($('#productprice').val()).toFixed(2);
      console.log(price);
-    
+
     if(price != 'NaN'){
-        $('#productprice').val(price);   
+        $('#productprice').val(price);
     }
 });
 function isNumber(evt, element) {
@@ -131,4 +137,4 @@ function isInteger(evt, element) {
             return false;
 
         return true;
-    }
+}

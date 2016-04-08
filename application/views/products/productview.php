@@ -78,7 +78,7 @@
         <h4 class="modal-title">Set Item Quantity</h4>
       </div>
       <div class="modal-body">
-          <input class="form-control" name="quantityToAdd" type="text"/>
+          <input class="form-control" name="quantityToAdd" id="quantityToAdd" type="text"/>
       </div>
       <div class="modal-footer">
           <button type="submit" name="button" class="btn btn-primary">Add</button>

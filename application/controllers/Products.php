@@ -172,26 +172,19 @@ class Products extends CI_Controller {
         {
                 $_SESSION['error-message'] = validation_errors();
         }else{
-            $sql = $this->db->query("select * from products where pr_name = '".$_POST['productname']."'");
-            $numrows = $sql->num_rows();
-            if($numrows == 0):
             $data = [
              'pr_name'      => $_POST['productname'],
-             'pr_quantity'  => $_POST['productquantity'],
              'pr_price'     => $_POST['productprice'],
              'cat_id'       => $_POST['category'],
             ];
-
+            
             $where = "pr_id = ".$_POST['id'];
-
+            
             $this->db->update('products', $data, $where);
-
+            
             $_SESSION['success-message']=" Product Updated";
-            else:
-                 $_SESSION['error-message']= "Product has almost same content or has similar product name";
-            endif;
-        }
-
+          
+        }        
 
         header('location: '.base_url().'products/view?id='.$_POST['id']);
     }

@@ -86,6 +86,7 @@ class Users extends CI_Controller {
             $firstname = $user->firstname;
             $lastname = $user->lastname;
             $email = $user->email;
+            $username = $user->username;
             $gender_id = $user->gender;
             if($gender_id == 1):
                 $gender = "Male";
@@ -122,6 +123,7 @@ class Users extends CI_Controller {
             'firstname' => $firstname,
             'lastname'  => $lastname,
             'email'     => $email,
+            'username'  => $username,
             'gender'    => $gender,
             'user_types' => $user_types,
             'branch'    => $branch,
@@ -138,11 +140,22 @@ class Users extends CI_Controller {
     }
 
     public function update(){
-         $this->loadhelper();
+        $this->loadhelper();
+        $this->load->library('session');
+        
         $this->form_validation->set_rules('usertype', 'User type', 'required');
         $this->form_validation->set_rules('firstname', 'First Name', 'required');
         $this->form_validation->set_rules('lastname', 'Last Name', 'required');
-        $this->form_validation->set_rules('email', 'E-Mail', 'required|valid_email');
+        $sqlx = $this->db->query("SELECT * from users where user_id = ".$_POST['user_id']);
+        $rownum = $sqlx->num_rows();
+        $emailx = $sqlx->row();
+        $callback = '';
+        if($_POST['email'] != $emailx->email){
+               $callback = '|callback_email_check';
+        }
+        
+        $this->form_validation->set_rules('email', 'E-Mail', 'required|valid_email'.$callback);
+        
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         if ($this->form_validation->run() == FALSE)
         {
@@ -170,25 +183,73 @@ class Users extends CI_Controller {
 
         header('location:'.base_url().'users/viewuser?id='.$_POST['user_id']);
     }
-
-    public function create(){
+    
+    public function email_check($email) { 
+    $this->loadhelper();
+     $sql = $this->db->query("SELECT * from users where email ='".$email."' ");
+     $numrow = $sql->num_rows();
+        if($numrow != 0){
+            $this->form_validation->set_message('email_check', 'This {field} already exists');
+            return false;               
+        }else{
+            return true;
+        } 
+   }
+    
+    public function changepass() {
         $this->loadhelper();
 
-        $this->form_validation->set_rules('usertype', 'User type', 'required');
-        $this->form_validation->set_rules('firstname', 'First Name', 'required');
-        $this->form_validation->set_rules('lastname', 'Last Name', 'required');
-        $this->form_validation->set_rules('email', 'E-Mail', 'required|valid_email');
-        $this->form_validation->set_rules('gender', 'Gender', 'required');
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('vpassword', 'Confirm Password', 'required');
+        $this->form_validation->set_rules('current', 'Password', 'required|max_length[20]');
+        
+        $this->form_validation->set_message('max_length', '%s: the maximum characters is %s');
+        
         if ($this->form_validation->run() == FALSE)
         {
                 $_SESSION['error-message'] = validation_errors();
         }
         else
         {
-					
+            
+            $data = [
+                'password'  => md5($_POST['current']),
+            ];
+            $this->db->where([ 'user_id' => $_POST['user_id'] ]);
+            $this->db->update('users', $data);
+
+            $_SESSION['success-message']=" Password Changed";
+
+            echo $_SESSION['success-message'];
+        }
+
+
+        header('location:'.base_url().'users/viewuser?id='.$_POST['user_id']);
+    }
+    
+    public function create(){
+        $this->loadhelper();
+        $this->load->library('session');
+
+        $this->form_validation->set_rules('usertype', 'User type', 'required');
+        $this->form_validation->set_rules('firstname', 'First Name', 'required');
+        $this->form_validation->set_rules('lastname', 'Last Name', 'required');
+        $this->form_validation->set_rules('email', 'E-Mail', 'required|valid_email|is_unique[users.email]',
+            array(
+                'is_unique'     => 'This %s already exists.'
+                )
+            );
+        $this->form_validation->set_rules('gender', 'Gender', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
+        $this->form_validation->set_rules('password', 'Password', 'required|max_length[20]');
+        
+        $this->form_validation->set_message('max_length', '%s: the maximum characters is %s');
+        $this->form_validation->set_rules('vpassword', 'Confirm Password', 'required|matches[password]');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+                $_SESSION['error-message'] = validation_errors();
+        }
+        else
+        {   
             $data = [
                 'br_id' => $_POST['branch'],
                 'ustype_id' => $_POST['usertype'],
@@ -199,7 +260,6 @@ class Users extends CI_Controller {
                 'username'  => $_POST['username'],
                 'password'  => md5($_POST['password']),
             ];
-
             $this->db->insert('users', $data);
 
             $_SESSION['success-message']=" User Added";
@@ -207,10 +267,8 @@ class Users extends CI_Controller {
             echo $_SESSION['success-message'];
         }
 
-
         header('location:'.base_url().'users');
-    }
-
+    } 
     protected function loadhelper()
     {
         $this->load->database();

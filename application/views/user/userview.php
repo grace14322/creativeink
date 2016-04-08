@@ -13,9 +13,10 @@
                 <button class="btn btn-primary" data-toggle="modal" data-target="#passModal">Change Password <i class="fa fa-lock"></i></button>
                 <article>
                     <p class="text-justify"><b>User type:</b> <?php echo $user_types ?></p>
-                    <p class="text-justify"><b>E-mail:</b> <?php echo $email ?></p>
                     <p class="text-justify"><b>Branch:</b> <?php echo $branch ?></p>
                     <p class="text-justify"><b>Gender:</b> <?php echo $gender ?></p>
+                    <p class="text-justify"><b>E-mail:</b> <?php echo $email ?></p>
+                    <p class="text-justify"><b>Username:</b> <?php echo $username ?></p>
                 </article>
             </div>
         </div>
@@ -81,6 +82,11 @@
                       <label for="email">E-mail:</label>
                       <input type="text" class="form-control" name="email" value="<?php echo $email ?>">
                   </div>
+                  <div class="form-group">
+                      <label for="username">Username:</label>
+                      <p><?php echo $username ?></p>
+                      <input type="hidden" class="form-control" name="username">
+                  </div>
               </div>
           </div>
           <div class="modal-footer">
@@ -94,7 +100,8 @@
    <div class="modal fade" id="passModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <?php echo form_open('products/create'); ?>
+          <?php echo form_open('users/changepass'); ?>
+          <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
            <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">Change Password</h4>
@@ -102,7 +109,8 @@
           <div class="modal-body">
               <div class="form-group">
                   <label for="password">New Password:</label>
-                  <input type="password" class="form-control" name="current" value="" />
+                  <input type="password" class="form-control" name="current" value="" id="npass" />
+                  <span id="npass-notif" class="text-danger">
               </div>
           </div>
           <div class="modal-footer">

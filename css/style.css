@@ -21,7 +21,7 @@
 */
 .navbar { padding-bottom: 3px; }
 
-.navbar-custom { background-color: #1ca3a0; border-color: #17c9c5; }
+.navbar-custom { background-color: #1ca3a0; border-color: #17c9c5; padding-bottom: 10px; }
 
 .navbar-custom .navbar-nav > li > a { color: #FFF; }
 
@@ -33,7 +33,16 @@
 
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus { background-color: #17c9c5; border-color: none; }
 
+.t { padding-top: 15px; margin-right: 5px; color: #fff; }
+
+@media (max-width: 768px) { .t { display: none; } }
 .navbar-brand { float: left; height: 50px; padding: 5px 15px; font-size: 18px; line-height: 20px; }
+
+.navbar-m { padding-top: 9px; }
+.navbar-m > li { float: left; }
+.navbar-m > li > a { color: #fff; }
+.navbar-m > li > a:hover { background-color: transparent; }
+.navbar-m > li .logout { margin-top: 5px; }
 
 /*
 *

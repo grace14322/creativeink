@@ -24,7 +24,7 @@ window.onbeforeunload = function() {
             <div class="col-md-4">
                 <h3 class="title-header">Cart</h3>
                 <button type="button" name="button" class="btn btn-primary {{ hideThis }}" v-on:click="proceedCheckOut()">Proceed to checkout</button>
-                <button type="button" name="button" class="btn btn-danger" v-on:click="voidForm()">Void Item</button>
+                <button type="button" name="button" class="btn btn-danger {{ hideThis }}" v-on:click="voidForm()">Void Item</button>
                 <button type="button" name="button" class="btn btn-primary {{ voidHide }}" v-on:click="saveItemafterVoid()">Save Item</button>
                 <hr>
                 <div class="cart-list">
@@ -53,7 +53,7 @@ window.onbeforeunload = function() {
                    </div>
                    <hr>
                    <div class="row">
-                       <div class="col-xs-12 total text-right">TOTAL: ₱ {{ items | pluckSum 'item_price' 'item_quantity'}}</div>
+                       <div class="col-xs-12 total text-right"><b>TOTAL: ₱ {{ items | pluckSum 'item_price' 'item_quantity'}}</b></div>
                    </div>
                 </div>
             </div>
@@ -75,11 +75,11 @@ window.onbeforeunload = function() {
       </div>
         <div class="form-group">
           <label for="cash">Cash</label>
-          <input type="text" class="form-control" name="cash" v-model="cash" />
+          <input type="text" class="form-control" name="cash" v-model="cash" id="productprice" />
         </div>
       <div class="form-group">
           <label for="changedue">Change Due</label>
-          <input type="text" class="form-control" name="changedue" v-model="cash - total" disabled/>
+          <input type="text" class="form-control" name="changedue"  v-model="changedue" disabled/>
       </div>
     </div>
   </div>
@@ -99,7 +99,7 @@ window.onbeforeunload = function() {
     <h4 class="modal-title">Set Item Quantity</h4>
   </div>
   <div class="modal-body">
-      <input class="form-control" type="text" v-model="tQuantity" v-on:keyup.enter="addItem()"/>
+      <input class="form-control" type="text" v-model="tQuantity" v-on:keyup.enter="addItem()" id="setQuantity"/>
   </div>
   <div class="modal-footer">
     <span class="text-sm">Hit enter to submit</span>
@@ -114,7 +114,7 @@ window.onbeforeunload = function() {
 <div class="modal-content">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title">Enter Manager's Password</h4>
+    <h4 class="modal-title">Enter Admin/Manager's Password</h4>
   </div>
   <div class="modal-body">
       <input class="form-control" type="password" v-model="tpassword" v-on:keyup.enter="voidItem()"/>
@@ -171,7 +171,7 @@ window.onbeforeunload = function() {
                 </div>
                 <div class="col-xs-6">
                     <span class="pull-right">
-                       <b>Date:</b> <?php echo date('m-d-Y'); ?>
+                       <b>Date:</b> <?php echo date('m/d/Y'); ?>
                     </span>
                 </div>
                 <div class="col-xs-6">
@@ -209,7 +209,7 @@ window.onbeforeunload = function() {
       <hr>
       <p class="text-right"><b>TOTAL:</b> {{ total }}</p>
       <p class="text-right"><b>Cash:</b> {{ cash }}</p>
-      <p class="text-right"><b>Change Due:</b> {{ cash - total }}</p>
+      <p class="text-right"><b>Change Due:</b> {{ changedue }}</p>
   </div>
   <div class="modal-footer">
         <button type="button" name="button" class="btn btn-primary" v-on:click="printreceipt()">Print</button>

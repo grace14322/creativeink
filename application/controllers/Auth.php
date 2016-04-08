@@ -46,9 +46,8 @@ class Auth extends CI_Controller {
         );
         if ($this->form_validation->run() == FALSE)
         {
-                $this->load->view('template\header');
-                $this->load->view('auth\login');
-                $this->load->view('template\footer');
+                $_SESSION['error-message'] =  validation_errors();
+                redirect(base_url());
         }
         else
         {
@@ -122,9 +121,8 @@ class Auth extends CI_Controller {
 			$this->form_validation->set_rules('email', 'E - Mail', 'required|valid_email');
 			if ($this->form_validation->run() == FALSE)
 			{
-							$this->load->view('template\header');
-							$this->load->view('auth\forgotpassword');
-							$this->load->view('template\footer');
+                $_SESSION['validation-errors'] = validation_errors();
+                redirect(base_url('auth/forgotpassword'));
 			}
 			else
 			{
@@ -179,6 +177,7 @@ class Auth extends CI_Controller {
 		}
 		public function reset()
 		{
+            $this->is_logged_in();
 			$this->load->database();
 		 $this->load->helper(array('form', 'url'));
 		   $this->load->library('session');
@@ -200,18 +199,28 @@ class Auth extends CI_Controller {
 				$this->load->view('auth\resetpassword', $data);
 				$this->load->view('template\footer', $data);
 			endif;
-
+                
 		}
 		public function resetpassword()
 		{
 				$this->load->database();
 			 $this->load->helper(array('form', 'url'));
  		 		$this->load->library('session');
+            
 			 $npassword = md5($_POST['npass']);
 			 $vpassword = md5($_POST['vpass']);
 			 $user_id = $_POST['user_id'];
 			 $t = $_POST['slug'];
 			 $message = '';
+            
+            $password = $_POST['npass'];
+            
+            if(strlen($password) > 20) {
+             $message = 'Password is too long, the maximum characters is 20';
+             $message = $this->session->set_flashdata('error-message', $message);
+             header('location:'.base_url().'auth/reset?t='.$t);
+             exit(1);
+            }
 
 			 if($_POST['npass'] == '' || $_POST['vpass'] == ''){
 					 $message = 'Please Complete the form to proceed';

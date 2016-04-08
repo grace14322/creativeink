@@ -1,4 +1,4 @@
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-custom" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -18,15 +18,15 @@
                     </li>
                 </ul>
             </div>
-            <ul class="right-nav logout">
-                    <li class="<?php echo ((current_url() != base_url()) || (current_url() == base_url('auth/postlogin')) ? '' : 'hidden') ?>"><a href="#" data-toggle="modal" data-target="#logoutModal"><i class="glyphicon glyphicon-log-out"></i> Log out</a></li>
-                    
-            </ul> 
-            <ul class="right-nav">
-                    <li><b>Date: </b><?php echo date('m/d/Y'); ?></li>
-                    <li id="txt"></li>
-                    <!--<li><a href="#"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>-->
-                </ul>               
+            <ul class="nav navbar-m navbar-right">
+                 <li class="t"><b>Date: </b><?php echo date('m/d/Y'); ?></li>
+                 <li class="t" id="txt"></li>
+                      <?php $hidden = ''; ?>
+                      <?php if(current_url() == base_url() || current_url() == base_url('auth/postlogin') || current_url() == base_url('auth/forgotpassword') || current_url() == base_url('auth/reset')): ?>
+                          <?php $hidden = 'hidden'; ?>
+                      <?php endif; ?>
+                 <li class="<?php echo $hidden ?>" class="logout"><a style="    margin-top: 5px;" href="#" data-toggle="modal" data-target="#logoutModal"><i class="glyphicon glyphicon-log-out"></i> Log out</a></li>
+            </ul>    
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->

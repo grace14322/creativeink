@@ -147,11 +147,13 @@
                   </div>
                   <div class="form-group">
                       <label for="password">Password:</label>
-                      <input type="password" class="form-control" name="password" />
+                      <input type="password" class="form-control" name="password" id="npass"/>
+                       <span id="npass-notif" class="text-danger">
                   </div>
                   <div class="form-group">
                       <label for="vpass">Confirm password:</label>
-                      <input type="password" class="form-control" name="vpassword" />
+                      <input type="password" class="form-control" name="vpassword" id="vpass" />
+                      <span id="vpass-notif" class="text-danger">
                   </div>
               </div>
           </div>

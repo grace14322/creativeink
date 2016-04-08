@@ -54,6 +54,7 @@ $footerBackgroundColor: #343434 ;
 .navbar-custom {
     background-color: $navbarBackgroundColor;
     border-color: $navbarBorderColor;
+    padding-bottom:10px;
 }
 .navbar-custom .navbar-nav>li>a {
     color: $navbarFontColor;
@@ -75,12 +76,36 @@ $footerBackgroundColor: #343434 ;
      border-color: none;
 }
 
+.t {
+    padding-top:15px; margin-right:5px;
+    color:#fff;
+}
+
+@media (max-width:768px){
+    .t {
+        display:none;
+    }
+}
 .navbar-brand {
     float: left;
     height: 50px;
     padding: 5px 15px;
     font-size: 18px;
     line-height: 20px;
+}
+
+.navbar-m {
+    padding-top: 9px;
+    > li {
+        float:left;
+        > a {
+            color:#fff;
+        }
+        > a:hover {
+            background-color:rgba(0,0,0,0.0);
+        }
+        .logout{margin-top:5px;}
+    }
 }
 /*
 *

@@ -6,15 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="This is a Creative Ink's Web based Point of Sale">
     <meta name="author" content="Mary Grace Braganza">
-    
+
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.css" />
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css" />
-    
+
     <link rel="stylesheet" href="<?php echo base_url(); ?>fonts/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="<?php echo base_url(); ?>fonts/open-sans/stylesheet.css" />
     <link rel="stylesheet" href="<?php echo base_url(); ?>plugins/morrisjs/morris.css" />
-    
-     <link rel="stylesheet" href="<?php echo base_url(); ?>plugins/datatables-responsive/css/dataTables.responsive.css">
+
+    <!-- DataTables CSS -->
+    <link href="<?php echo base_url() ?>plugins/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="<?php echo base_url() ?>plugins/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

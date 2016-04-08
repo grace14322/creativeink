@@ -7,20 +7,13 @@
                        <div class="img-logo-holder">
                            <img src="<?php echo base_url(); ?>img/logo.png" alt="" class="img-responsive img-logo">
                        </div>
-                       <?php if(validation_errors()): ?>
-                           <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                              <strong>Whoops!</strong> There were some problems with your input.
-                               <?php echo validation_errors(); ?>
-                            </div>
-                       <?php endif; ?>
                        <?php if( isset($_SESSION['success-message']) ): ?>
                            <div class="alert alert-success alert-dismissible fade in" role="alert">
                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                               <strong>Success</strong>
                                <p><?php echo $_SESSION['success-message'] ?></p>
                             </div>
-                       <?php endif; ?>
+                       <?php endif; unset($_SESSION['success-message']);?>
                        <?php if( isset($_SESSION['error-message']) ): ?>
                            <div class="alert alert-danger alert-dismissible fade in" role="alert">
                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
