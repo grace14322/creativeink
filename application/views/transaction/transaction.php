@@ -7,19 +7,27 @@ window.onbeforeunload = function() {
         <div class="row">
             <div class="col-md-8">
                <h3 class="title-header">Menu</h3>
+               <div class="row">
+                 <div class="col-xs-3">
+                   <span>Select Category:</span>
+                   <select class="form-control" name="" v-model="selcat">
+                        <option value="0" selected>All</option>
+                        <template v-for="c in categories">
+                               <option value="{{ c.cat_id }}">{{ c.cat_name }}</option>
+                        </template>
+                   </select>
+                 </div>
+               </div>
                <hr>
                 <div class="product-menu-list row">
-                   <?php foreach($products as $product): ?>
-                    <div class="product col-xs-2" v-on:click="prepareItem('<?php echo $product->pr_id ?>')">
-                        <div class="product-img">
-                             <a href="#"><img src="img/logo.png" alt="" class="img-responsive"></a>
-                        </div>
+                  <template v-for="p in products| filterProduct selcat">
+                    <div class="pointer product Aligner col-xs-2" v-on:click="prepareItem(p.pr_id)">
                         <div class="product-name" >
-                            <p class="text-center"><?php echo $product->pr_name ?></p>
+                            <p class="text-center">{{ p.pr_name }}</p>
                         </div>
                     </div>
-                    <?php endforeach; ?>
-                </div>
+                  </template>
+                  </div>
             </div>
             <div class="col-md-4">
                 <h3 class="title-header">Cart</h3>
@@ -48,7 +56,7 @@ window.onbeforeunload = function() {
                            {{ i.item_price * i.item_quantity }}
                        </div>
                        <div class="col-xs-1">
-                          <button type="button" name="button" class="btn btn-warning {{ voidHide }}" v-on:click="removeItem($index)">x</button>
+                          <button type="button" name="button" class="btn btn-link {{ voidHide }}" v-on:click="removeItem($index)"><i class="fa fa-trash-o fa-2x"></i></button>
                        </div>
                    </div>
                    <hr>

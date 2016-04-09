@@ -75,15 +75,16 @@ $footerBackgroundColor: #343434 ;
      background-color: $navBackgroundColor;
      border-color: none;
 }
-.nav-tabs > li > a{
-  color: rgb(52, 52, 52);
-}
-.nav-tabs > li.active > a{
+// .nav-tabs > li > a{
+//   color: rgb(52, 52, 52);
+// }
+.nav-tabs > li.active a{
   color: rgb(49, 159, 250);
 }
 .tab-content{
   padding:20px;
 }
+
 
 .t {
     padding-top:15px; margin-right:5px;
@@ -234,6 +235,13 @@ div.product-menu-list {
         border:solid 1px #f4f4f4;
         border-radius: 5px;
         margin:3px;
+        height:160px;
+        background:url('../img/menu.png') no-repeat;
+        background-size:contain;
+
+        div.product-name{
+          font-weight: bold;
+        }
     }
     div.product:hover {
         box-shadow: 5px 5px 11px #F3F0F0;
@@ -312,7 +320,8 @@ a {
     cursor: pointer;
 }
 #receiptContent{
-   min-height: 480px;
+   min-height: 220px;
+   margin:0px auto;
    font-size: 12px;
    .logo-receipt {
       max-width:80px;

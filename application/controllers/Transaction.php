@@ -105,6 +105,19 @@ class Transaction extends CI_Controller {
 			endforeach;
 			echo $available_quantity;
 	}
+	public function getCategory()
+	{
+		$this->loadhelper();
+			$categories = $this->db->query("SELECT * from category");
+
+			echo json_encode($categories->result());
+	}
+	public function getProducts(){
+			$this->loadhelper();
+			$products = $this->db->query("SELECT * from products");
+
+			echo json_encode($products->result());
+	}
 	public function voidItem()
 	{
 			$this->loadhelper();
@@ -161,6 +174,29 @@ class Transaction extends CI_Controller {
 		 }
 		 return $randomString;
 		}
+
+		public function checkProductQuantity()
+		{
+				$this->loadhelper();
+			 $pr_id =$_GET['pr_id'];
+
+			 $product = $this->db->query("SELECT * from products where pr_id=".$pr_id);
+			 $row = $product->row();
+			$pr_quantity = $row->pr_quantity;
+
+			$items = $this->db->query("SELECT SUM(i.item_quantity) 'iQuantity' FROM items i where pr_id =".$pr_id);
+			$rowx = $items->row();
+
+
+			 $availability = $pr_quantity - $rowx->iQuantity;
+				$is_available = $availability >= 1;
+				if($is_available){
+						echo 1;
+				}else{
+					 echo 0;
+				}
+		}
+
     protected function loadhelper()
     {
 			  $this->load->helper('date');

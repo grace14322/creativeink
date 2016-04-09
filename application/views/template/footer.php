@@ -117,6 +117,10 @@ $(document).ready(function() {
    var app = new Vue({
         el:'body',
 
+        ready:function(){
+            this.getcategories();
+            this.getproducts();
+        },
         data:{
             total:0,
             items:[],
@@ -129,7 +133,9 @@ $(document).ready(function() {
             cash:'',
             changedue:'',
             transaction_id:'',
-
+            categories:[],
+            selcat:'',
+            products:[],
         },
        computed: {
             // a computed getter
@@ -148,10 +154,20 @@ $(document).ready(function() {
             }
        },
         methods:{
+           getproducts:function(){
+             this.$http.get('<?php echo base_url('transaction/getProducts') ?>',function(result){
+                this.products = result;
+             });
+           },
+           getcategories:function(){
+                this.$http.get('<?php echo base_url('transaction/getCategory') ?>',function(result){
+                   this.categories = result;
+                });
+           },
             addItem:function(){
                   var temp_pr_id = this.tpr_id;
               $('#setQuantity').modal('hide');
-              if (this.tQuantity != '') {
+              if (this.tQuantity != '' && this.tQuantity != 0) {
                 this.$http.get('<?php echo base_url() ?>transaction/getItem',{pr_id:this.tpr_id,item_quantity:this.tQuantity},function(result){
                     console.log(result);
                       if(result == 0){
@@ -159,6 +175,7 @@ $(document).ready(function() {
                                 $('#messageContent').html('Only ' + x + ' item(s) available');
                                 $('#messageItem').modal('show');
                                 console.log(x);
+                                $('body').removeAttr('style');
                           });
                       }else{
                         this.items.push(result[0]);
@@ -173,8 +190,17 @@ $(document).ready(function() {
                 this.tpr_id = '';
             },
             prepareItem:function(pr_id){
-                this.tpr_id = pr_id;
-                $('#setQuantity').modal('show');
+
+                this.$http.get('<?php echo base_url('transaction/checkProductQuantity') ?>',{ pr_id:pr_id },function(result){
+                          if(result == 1){
+                            this.tpr_id = pr_id;
+                            $('#setQuantity').modal('show');
+                            $('body').removeAttr('style');
+                          }else{
+                            $('#messageContent').html('Product Not Available');
+                            $('#messageItem').modal('show');
+                          }
+                });
             },
             voidForm:function(){
               var itemNo = 0;
@@ -187,8 +213,10 @@ $(document).ready(function() {
               if(itemNo == 0){
                 $('#messageContent').html('No Items to Void');
                 $('#messageItem').modal('show');
+                $('body').removeAttr('style');
               }else{
                   $('#void').modal('show');
+                  $('body').removeAttr('style');
               }
 
             },
@@ -211,6 +239,7 @@ $(document).ready(function() {
               this.$http.get('<?php base_url() ?>transaction/store',{transaction_id:this.transaction_id, items: this.items, total:this.total}, function(result){
                   if(result == 1){
                           $('#transaction_stats').modal('show');
+                          $('body').removeAttr('style');
                             console.log(result);
                    }
 
@@ -227,8 +256,10 @@ $(document).ready(function() {
               if(itemNo == 0){
                 $('#messageContent').html('No Items to Checkout');
                 $('#messageItem').modal('show');
+                $('body').removeAttr('style');
               }else{
                   $('#checkoutModal').modal('show');
+                  $('body').removeAttr('style');
               }
             },
             checkout:function(){
@@ -238,10 +269,11 @@ $(document).ready(function() {
             if(x){
                  $('#messageContent').html('Invalid amount of cash');
                 $('#messageItem').modal('show');
+                $('body').removeAttr('style');
                 this.cash = '';
              }else{
                 $('#receiptModal').modal('show');
-
+$('body').removeAttr('style');
              }
 
             },
@@ -261,6 +293,7 @@ $(document).ready(function() {
                 $('#checkoutModal').modal('hide');
                 $('#receiptModal').modal('hide');
                 $('#messageContent').html('Transaction Success');
+                $('body').removeAttr('style');
             },
             prinTer:function(){
               $("#print-holder, #photo-list").print({
@@ -289,6 +322,7 @@ $(document).ready(function() {
                this.$http.get('<?php echo base_url('transaction/viewitems') ?>',{tr_id:i}, function(result){
                       this.items = result;listItems
                       $('#listItems').modal('show');
+                      $('body').removeAttr('style');
                });
             }
         },
@@ -301,6 +335,15 @@ $(document).ready(function() {
 
                     return totalTransact
                 }, 0)
+            },
+            filterProduct:function(products, scat){
+              return products.filter(function(listofproducts){
+                            if(scat == 0){
+                               return listofproducts;
+                            }else{
+                              return listofproducts.cat_id == scat;
+                            }
+                       })
             }
         }
     })

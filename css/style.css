@@ -33,9 +33,7 @@
 
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus { background-color: #17c9c5; border-color: none; }
 
-.nav-tabs > li > a { color: #343434; }
-
-.nav-tabs > li.active > a { color: #319ffa; }
+.nav-tabs > li.active a { color: #319ffa; }
 
 .tab-content { padding: 20px; }
 
@@ -100,7 +98,8 @@ section.login div.login-holder { min-width: 0px; min-height: 80px; border: solid
 
 p.login-welcome { margin-bottom: 25px; }
 
-div.product-menu-list div.product { border: solid 1px #f4f4f4; border-radius: 5px; margin: 3px; }
+div.product-menu-list div.product { border: solid 1px #f4f4f4; border-radius: 5px; margin: 3px; height: 160px; background: url("../img/menu.png") no-repeat; background-size: contain; }
+div.product-menu-list div.product div.product-name { font-weight: bold; }
 div.product-menu-list div.product:hover { box-shadow: 5px 5px 11px #F3F0F0; }
 
 article { padding: 10px; }
@@ -135,7 +134,7 @@ a { outline: none !important; }
 
 #pass-label, #general-label { cursor: pointer; }
 
-#receiptContent { min-height: 480px; font-size: 12px; }
+#receiptContent { min-height: 220px; margin: 0px auto; font-size: 12px; }
 #receiptContent .logo-receipt { max-width: 80px; margin: 0px auto; }
 
 .side-menu { text-decoration: none; color: #2f2f2f; }
