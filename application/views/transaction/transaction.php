@@ -12,21 +12,17 @@ window.onbeforeunload = function() {
                    <span>Select Category:</span>
                    <select class="form-control" name="" v-model="selcat">
                         <option value="0" selected>All</option>
-                        <template v-for="c in categories">
-                               <option value="{{ c.cat_id }}">{{ c.cat_name }}</option>
-                        </template>
+                               <option v-for="c in categories"  value="{{ c.cat_id }}">{{ c.cat_name }}</option>
                    </select>
                  </div>
                </div>
                <hr>
                 <div class="product-menu-list row">
-                  <template v-for="p in products| filterProduct selcat">
-                    <div class="pointer product Aligner col-xs-2" v-on:click="prepareItem(p.pr_id)">
+                    <div v-for="p in products| filterProduct selcat" class="pointer product Aligner col-xs-2" v-on:click="prepareItem(p.pr_id)">
                         <div class="product-name" >
                             <p class="text-center">{{ p.pr_name }}</p>
                         </div>
                     </div>
-                  </template>
                   </div>
             </div>
             <div class="col-md-4">
@@ -202,14 +198,12 @@ window.onbeforeunload = function() {
                         </tr>
                     </thead>
                     <tbody>
-                          <template v-for="i in items">
-                            <tr>
+                            <tr v-for="i in items">
                                 <td>{{ i.item_name }}</td>
                                 <td>{{ i.item_quantity }}</td>
                                 <td>{{ i.item_price }}</td>
                                 <td>{{ i.item_price * i.item_quantity }}</td>
                             </tr>
-                          </template>
                     </tbody>
                 </table>
             </div>

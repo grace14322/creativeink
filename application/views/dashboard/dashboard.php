@@ -103,15 +103,13 @@
                       <th class="text-center">Value</th>
                     </tr>
                 </thead>
-                <template v-for="i in items">
-                      <tr>
+                      <tr  v-for="i in items">
                           <td class="text-center">{{ i.transaction_id }}</td>
                           <td class="text-center">{{ i.pr_name }}</td>
                           <td class="text-center">{{ i.quantity }}</td>
                           <td class="text-center">{{ i.price }}</td>
                           <td class="text-center">{{ i.quantity * i.price  }}</td>
                       </tr>
-                </template>
               </table>
           </div>
       </div>
