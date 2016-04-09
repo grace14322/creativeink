@@ -75,7 +75,7 @@
                             </tbody>
                         </table>
                         </div>
-                        <button type="button" name="button" class="btn btn-default pull-right" v-on:click="prinTer()">Print</button>
+                        <button type="button" name="button" class="btn btn-primary pull-right" v-on:click="prinTer()">Print <i class="fa fa-print"></i></button>
                     </div>
                   </div>
                 </div>
