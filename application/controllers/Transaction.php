@@ -117,7 +117,7 @@ class Transaction extends CI_Controller {
 	  public function store()
 		{
 			$this->loadhelper();
-			$transaction_id = $this->makeid();
+			$transaction_id = $this->input->get('transaction_id');
 			$items = json_decode(json_encode($this->input->get('items')),true);
 			$total = $this->input->get('total');
 
@@ -146,6 +146,10 @@ class Transaction extends CI_Controller {
 			 	$items = $this->db->query("SELECT  i.tr_id 'transaction_id',  p.pr_name 'pr_name',  p.pr_price 'price',  i.item_quantity 'quantity' FROM items i, products p where i.pr_id = p.pr_id AND i.tr_id = '".$_GET['tr_id']."'");
 
 				echo json_encode($items->result());
+		}
+		public function generateid()
+		{
+			echo $this->makeid();
 		}
 		protected function makeid()
 		{

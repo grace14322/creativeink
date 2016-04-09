@@ -128,17 +128,21 @@ $(document).ready(function() {
             hideThis:'',
             cash:'',
             changedue:'',
+            transaction_id:'',
 
         },
        computed: {
             // a computed getter
             changedue: function () {
               // `this` points to the vm instance
+
               var total = 0;
-              var x = this.cash - this.total;
-                if((!(x < 0))){
-                    total = x;
-                }
+              if(this.cash != null && this.cash != '' && this.cash != 'NaN' && this.cash != '.'){
+                var x = this.cash - this.total;
+                  if((!(x < 0))){
+                      total = x;
+                  }
+              }
 
                 return total ;
             }
@@ -204,7 +208,7 @@ $(document).ready(function() {
             },
             saveTransaction:function(){
 
-              this.$http.get('<?php base_url() ?>transaction/store',{transaction_id:'a1sf1aa1f5sa16', items: this.items, total:this.total}, function(result){
+              this.$http.get('<?php base_url() ?>transaction/store',{transaction_id:this.transaction_id, items: this.items, total:this.total}, function(result){
                   if(result == 1){
                           $('#transaction_stats').modal('show');
                             console.log(result);
@@ -229,16 +233,22 @@ $(document).ready(function() {
             },
             checkout:function(){
               // window.print();
-            var x = this.cash < this.total;
-
+            var x = this.cash < this.total || this.cash == '.';
+            transaction_id = this.getTrID();
             if(x){
                  $('#messageContent').html('Invalid amount of cash');
                 $('#messageItem').modal('show');
+                this.cash = '';
              }else{
                 $('#receiptModal').modal('show');
 
              }
 
+            },
+            getTrID:function(){
+                this.$http.get('<?php echo base_url() ?>transaction/generateid', function(result){
+                    this.transaction_id = result;
+                });
             },
             printreceipt:function(){
                 self = this;
@@ -253,7 +263,7 @@ $(document).ready(function() {
                 $('#messageContent').html('Transaction Success');
             },
             prinTer:function(){
-              $("#print-holder").print({
+              $("#print-holder, #photo-list").print({
                         globalStyles: true,
                         mediaPrint: false,
                         stylesheet: null,

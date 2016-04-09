@@ -50,26 +50,26 @@
                     </div>
                   </div>
                     <div role="tabpanel" class="tab-pane fade" id="sales">
-                      <div class="table-responsive" id="print-holder">
-                          <table id="photo-list" class="display" cellspacing="0" width="100%">
+                      <div class="table-responsive">
+                          <table id="photo-list" class="display table-transaction" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Transaction ID</th>
-                                    <th>Cashier</th>
-                                    <th>Branch</th>
-                                    <th>Total</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Transaction ID</th>
+                                    <th class="text-center">Cashier</th>
+                                    <th class="text-center">Branch</th>
+                                    <th class="text-center">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 <?php foreach($transactions as $transaction): ?>
-                                    <tr v-on:click="viewitems('<?php echo $transaction->tr_id ?>')" class="pointer">
-                                        <td><?php echo $transaction->date ?></td>
-                                        <td><?php echo $transaction->tr_id ?></td>
-                                        <td><?php echo $transaction->firstname.' '.$transaction->lastname ?></td>
-                                        <td><?php echo $transaction->branch ?></td>
-                                        <td><?php echo $transaction->total ?></td>
+                                    <tr v-on:click="viewitems('<?php echo $transaction->tr_id ?>')" class="pointer ">
+                                        <td class="text-center"><?php echo $transaction->date ?></td>
+                                        <td class="text-center"><a href="#"><?php echo $transaction->tr_id ?></a></td>
+                                        <td class="text-center"><?php echo $transaction->firstname.' '.$transaction->lastname ?></td>
+                                        <td class="text-center"><?php echo $transaction->branch ?></td>
+                                        <td class="text-center"><?php echo $transaction->total ?></td>
                                     </tr>
                                 <?php endforeach;?>
                             </tbody>
