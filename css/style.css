@@ -29,9 +29,15 @@
 
 .navbar-custom .navbar-nav > li:hover > a { color: #FFF; }
 
-.nav > li > a:hover, .nav > li > a:focus { text-decoration: none; background-color: #17c9c5; }
+.nav > li > a:hover, .nav > li > a:focus { text-decoration: none; background-color: transparent; }
 
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus { background-color: #17c9c5; border-color: none; }
+
+.nav-tabs > li > a { color: #343434; }
+
+.nav-tabs > li.active > a { color: #319ffa; }
+
+.tab-content { padding: 20px; }
 
 .t { padding-top: 15px; margin-right: 5px; color: #fff; }
 
@@ -73,9 +79,9 @@ ul.right-nav li:nth-child(3) { margin-left: 20px; }
 
 .profile-pic { max-height: 68px; max-width: 68px; }
 
-.main-container { margin-top: 40px; margin-right: 0px; }
+.main-container { margin-top: 40px; }
 
-section.login { height: 100vh; }
+section.login { height: 100vh; margin-top: 80px; }
 section.login div.login-holder { min-width: 0px; min-height: 80px; border: solid 1px #ededed; padding: 0px 0px 16px 0px; margin: 0px auto; }
 
 .img-logo-holder { max-width: 120px; max-height: 120px; margin: 0px auto; }

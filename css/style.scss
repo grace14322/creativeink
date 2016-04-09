@@ -68,12 +68,21 @@ $footerBackgroundColor: #343434 ;
 
 .nav > li > a:hover, .nav > li > a:focus {
     text-decoration: none;
-    background-color: $navBackgroundColor;
+    background-color: rgba(0,0,0,0);
 }
 
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
      background-color: $navBackgroundColor;
      border-color: none;
+}
+.nav-tabs > li > a{
+  color: rgb(52, 52, 52);
+}
+.nav-tabs > li.active > a{
+  color: rgb(49, 159, 250);
+}
+.tab-content{
+  padding:20px;
 }
 
 .t {
@@ -180,13 +189,12 @@ ul.right-nav {
 }
 .profile-pic { max-height: 68px; max-width: 68px; }
 .main-container {
-
     margin-top: 40px;
-    margin-right:0px;
 }
 
 section.login {
     height:100vh;
+    margin-top:80px;
     div.login-holder {
     min-width: 0px;
     min-height: 80px;
