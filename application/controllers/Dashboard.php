@@ -71,7 +71,6 @@ class Dashboard extends CI_Controller {
 		// endforeach;
 		$sql_branch = $this->db->query('SELECT * FROM branch');
 		$branches = $sql_branch->result();
-
 		$transactions = $this->db->query("SELECT t.tr_id 'tr_id', t.tr_at 'date', u.firstname 'firstname', u.lastname 'lastname', b.br_name 'branch', t.total 'total' FROM `transaction` t, `users` u, branch b WHERE t.user_id = u.user_id AND t.br_id = b.br_id");
 		$x = [
 				'dataforChart' => $rows,
