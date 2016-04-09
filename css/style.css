@@ -35,6 +35,8 @@
 
 .t { padding-top: 15px; margin-right: 5px; color: #fff; }
 
+.pointer { cursor: pointer; }
+
 @media (max-width: 768px) { .t { display: none; } }
 .navbar-brand { float: left; height: 50px; padding: 5px 15px; font-size: 18px; line-height: 20px; }
 
@@ -71,10 +73,10 @@ ul.right-nav li:nth-child(3) { margin-left: 20px; }
 
 .profile-pic { max-height: 68px; max-width: 68px; }
 
-.main-container { margin-top: 120px; }
+.main-container { margin-top: 40px; margin-right: 0px; }
 
 section.login { height: 100vh; }
-section.login div.login-holder { min-width: 0px; min-height: 80px; border: solid 1px #ededed; padding: 0px 0px 16px 0px; }
+section.login div.login-holder { min-width: 0px; min-height: 80px; border: solid 1px #ededed; padding: 0px 0px 16px 0px; margin: 0px auto; }
 
 .img-logo-holder { max-width: 120px; max-height: 120px; margin: 0px auto; }
 

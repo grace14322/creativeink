@@ -128,6 +128,7 @@ $(document).ready(function() {
             hideThis:'',
             cash:'',
             changedue:'',
+
         },
        computed: {
             // a computed getter
@@ -241,6 +242,17 @@ $(document).ready(function() {
             },
             printreceipt:function(){
                 self = this;
+
+                self.prinTer();
+                self.saveTransaction();
+                this.items = [];
+                this.cash = '';
+                $('#messageItem').modal('show');
+                $('#checkoutModal').modal('hide');
+                $('#receiptModal').modal('hide');
+                $('#messageContent').html('Transaction Success');
+            },
+            prinTer:function(){
               $("#print-holder").print({
                         globalStyles: true,
                         mediaPrint: false,
@@ -255,14 +267,6 @@ $(document).ready(function() {
                             title: null,
                             doctype: '<!doctype html>'
                 });
-
-                self.saveTransaction();
-                this.items = [];
-                this.cash = '';
-                $('#messageItem').modal('show');
-                $('#checkoutModal').modal('hide');
-                $('#receiptModal').modal('hide');
-                $('#messageContent').html('Transaction Success');
             },
             removeItem:function(item){
                 this.items.splice(item,1);
@@ -270,6 +274,12 @@ $(document).ready(function() {
             saveItemafterVoid:function(){
                this.voidHide = 'hidden';
                this.hideThis = '';
+            },
+            viewitems:function(i){
+               this.$http.get('<?php echo base_url('transaction/viewitems') ?>',{tr_id:i}, function(result){
+                      this.items = result;listItems
+                      $('#listItems').modal('show');
+               });
             }
         },
         filters:{

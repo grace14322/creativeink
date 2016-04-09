@@ -50,7 +50,7 @@
                     </div>
                   </div>
                     <div role="tabpanel" class="tab-pane fade" id="sales">
-                      <div class="table-responsive">
+                      <div class="table-responsive" id="print-holder">
                           <table id="photo-list" class="display" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
@@ -64,7 +64,7 @@
                             <tbody>
 
                                 <?php foreach($transactions as $transaction): ?>
-                                    <tr>
+                                    <tr v-on:click="viewitems('<?php echo $transaction->tr_id ?>')" class="pointer">
                                         <td><?php echo $transaction->tr_id ?></td>
                                         <td><?php echo $transaction->firstname.' '.$transaction->lastname ?></td>
                                         <td><?php echo $transaction->date ?></td>
@@ -72,11 +72,10 @@
                                         <td><?php echo $transaction->total ?></td>
                                     </tr>
                                 <?php endforeach;?>
-
-
                             </tbody>
                         </table>
                         </div>
+                        <button type="button" name="button" class="btn btn-default pull-right" v-on:click="prinTer()">Print</button>
                     </div>
                   </div>
                 </div>
@@ -85,6 +84,44 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="listItems" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Message</h4>
+      </div>
+      <div class="modal-body">
+          <div class="" id="itemContent">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th>Transaction ID</th>
+                      <th>Item</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Value</th>
+                    </tr>
+                </thead>
+                <template v-for="i in items">
+                      <tr>
+                          <td>{{ i.transaction_id }}</td>
+                          <td>{{ i.pr_name }}</td>
+                          <td>{{ i.quantity }}</td>
+                          <td>{{ i.price }}</td>
+                          <td>{{ i.quantity * i.price  }}</td>
+                      </tr>
+                </template>
+              </table>
+          </div>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+
+    </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <script type="text/javascript">
         setTimeout(function(){
           $(function() {

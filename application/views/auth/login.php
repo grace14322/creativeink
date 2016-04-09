@@ -1,4 +1,4 @@
-<section class="login Aligner">
+<section class="login">
         <div class="container">
             <div class="row">
                 <div class="col-md-4"></div>

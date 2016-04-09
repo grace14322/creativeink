@@ -142,7 +142,12 @@ class Transaction extends CI_Controller {
 
 			echo 1;
 		}
+		public function viewitems(){
+			$this->loadhelper();
+			 	$items = $this->db->query("SELECT  i.tr_id 'transaction_id',  p.pr_name 'pr_name',  p.pr_price 'price',  i.item_quantity 'quantity' FROM items i, products p where i.pr_id = p.pr_id AND i.tr_id = '".$_GET['tr_id']."'");
 
+				echo json_encode($items->result());
+		}
 		protected function makeid()
 		{
 			$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

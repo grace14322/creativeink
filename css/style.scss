@@ -80,7 +80,9 @@ $footerBackgroundColor: #343434 ;
     padding-top:15px; margin-right:5px;
     color:#fff;
 }
-
+.pointer{
+   cursor: pointer;
+}
 @media (max-width:768px){
     .t {
         display:none;
@@ -179,7 +181,8 @@ ul.right-nav {
 .profile-pic { max-height: 68px; max-width: 68px; }
 .main-container {
 
-    margin-top: 120px;
+    margin-top: 40px;
+    margin-right:0px;
 }
 
 section.login {
@@ -189,6 +192,7 @@ section.login {
     min-height: 80px;
     border:solid 1px rgb(237, 237, 237) ;
     padding:0px 0px 16px 0px;
+    margin:0px auto;
     }
 }
 .img-logo-holder{
