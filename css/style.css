@@ -100,7 +100,7 @@ p.login-welcome { margin-bottom: 25px; }
 
 div.product-menu-list div.product { border: solid 1px #f4f4f4; border-radius: 5px; margin: 3px; height: 160px; background: url("../img/menu.png") no-repeat; background-size: contain; }
 div.product-menu-list div.product div.product-name { font-weight: bold; }
-div.product-menu-list div.product:hover { box-shadow: 5px 5px 11px #F3F0F0; }
+div.product-menu-list div.product:hover { box-shadow: 5px 5px 11px #0A0707; }
 
 article { padding: 10px; }
 
