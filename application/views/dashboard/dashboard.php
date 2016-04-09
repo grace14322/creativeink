@@ -64,7 +64,7 @@
                             <tbody>
 
                                 <?php foreach($transactions as $transaction): ?>
-                                    <tr v-on:click="viewitems('<?php echo $transaction->tr_id ?>')" class="pointer ">
+                                    <tr v-on:click="viewitems('<?php echo $transaction->tr_id ?>')" class="pointer " >
                                         <td class="text-center"><?php echo $transaction->date ?></td>
                                         <td class="text-center"><a href="#"><?php echo $transaction->tr_id ?></a></td>
                                         <td class="text-center"><?php echo $transaction->firstname.' '.$transaction->lastname ?></td>
@@ -75,7 +75,7 @@
                             </tbody>
                         </table>
                         </div>
-                        <button type="button" name="button" class="btn btn-default pull-right" v-on:click="prinTer()">Print</button>
+                        <button type="button" name="button" class="btn btn-primary pull-right" v-on:click="prinTer()">Print <i class="fa fa-print"></i></button>
                     </div>
                   </div>
                 </div>
@@ -89,27 +89,27 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Message</h4>
+        <h4 class="modal-title">Items</h4>
       </div>
       <div class="modal-body">
           <div class="" id="itemContent">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                      <th>Transaction ID</th>
-                      <th>Item</th>
-                      <th>Quantity</th>
-                      <th>Price</th>
-                      <th>Value</th>
+                      <th class="text-center">Transaction ID</th>
+                      <th class="text-center">Item</th>
+                      <th class="text-center">Quantity</th>
+                      <th class="text-center">Price</th>
+                      <th class="text-center">Value</th>
                     </tr>
                 </thead>
                 <template v-for="i in items">
                       <tr>
-                          <td>{{ i.transaction_id }}</td>
-                          <td>{{ i.pr_name }}</td>
-                          <td>{{ i.quantity }}</td>
-                          <td>{{ i.price }}</td>
-                          <td>{{ i.quantity * i.price  }}</td>
+                          <td class="text-center">{{ i.transaction_id }}</td>
+                          <td class="text-center">{{ i.pr_name }}</td>
+                          <td class="text-center">{{ i.quantity }}</td>
+                          <td class="text-center">{{ i.price }}</td>
+                          <td class="text-center">{{ i.quantity * i.price  }}</td>
                       </tr>
                 </template>
               </table>
