@@ -54,8 +54,8 @@
                           <table id="photo-list" class="display" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>transaction id</th>
                                     <th>Date</th>
+                                    <th>Transaction ID</th>
                                     <th>Cashier</th>
                                     <th>Branch</th>
                                     <th>Total</th>
@@ -65,9 +65,9 @@
 
                                 <?php foreach($transactions as $transaction): ?>
                                     <tr>
+                                        <td><?php echo $transaction->date ?></td>
                                         <td><?php echo $transaction->tr_id ?></td>
                                         <td><?php echo $transaction->firstname.' '.$transaction->lastname ?></td>
-                                        <td><?php echo $transaction->date ?></td>
                                         <td><?php echo $transaction->branch ?></td>
                                         <td><?php echo $transaction->total ?></td>
                                     </tr>

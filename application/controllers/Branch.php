@@ -47,14 +47,15 @@ class Branch extends CI_Controller {
         $this->is_logged_in();
 
         $this->form_validation->set_rules('branchname', 'Branch Name', 'required');
-        $this->form_validation->set_rules('address', 'Address', 'required');
+        $this->form_validation->set_rules('address', 'Address', 'required|is_unique[branch.br_address]',
+            array(
+                'is_unique'     => 'This %s already exists.'
+                )
+            );
         if ($this->form_validation->run() == FALSE)
         {
                 $_SESSION['error-message'] = validation_errors();
         }else{
-            $sql = $this->db->query("select * from branch where br_address LIKE '%".$_POST['address']."%'");
-            $numrows = $sql->num_rows();
-            if($numrows == 0):
                  $data = [
                     'br_name' => $_POST['branchname'],
                     'br_address' => $_POST['address'],
@@ -62,11 +63,6 @@ class Branch extends CI_Controller {
                     $this->db->insert('branch', $data);
 
                 $_SESSION['success-message']=" Branch Saved";
-                header('location:'.base_url().'branch');
-                exit(0);
-            else:
-                 $_SESSION['error-message']= "Branch already added or has similar branch address";
-            endif;
         }
 
 
@@ -126,15 +122,19 @@ class Branch extends CI_Controller {
         $this->is_logged_in();
 
         $this->form_validation->set_rules('branchname', 'Branch Name', 'required');
-        $this->form_validation->set_rules('address', 'Address', 'required');
+        $sqlx = $this->db->query("SELECT * from branch where br_id = ".$_POST['id']);
+        $rownum = $sqlx->num_rows();
+        $addressx = $sqlx->row();
+        $callback = '';
+        if($_POST['address'] != $addressx->br_address){
+               $callback = '|callback_address_check';
+        }
+        $this->form_validation->set_rules('address', 'Address', 'required'.$callback);
 
         if ($this->form_validation->run() == FALSE)
         {
                 $_SESSION['error-message'] = validation_errors();
         }else{
-            $sql = $this->db->query("select * from branch where br_address LIKE '%".$_POST['address']."%'");
-            $numrows = $sql->num_rows();
-            if($numrows == 0):
             $data = [
              'br_name'      => $_POST['branchname'],
              'br_address'  => $_POST['address'],
@@ -145,17 +145,23 @@ class Branch extends CI_Controller {
             $this->db->update('branch', $data, $where);
 
             $_SESSION['success-message']=" Branch Updated";
-						header('location: '.base_url().'branch/view?id='.$_POST['id']);
-						exit(0);
-            else:
-                 $_SESSION['error-message']= "Branch has almost same details or has similar branch address";
-            endif;
         }
 
 
         header('location: '.base_url().'branch/view?id='.$_POST['id']);
     }
-
+    
+    public function address_check($address) { 
+    $this->loadhelper();
+     $sql = $this->db->query("SELECT * from branch where br_address ='".$address."' ");
+     $numrow = $sql->num_rows();
+        if($numrow != 0){
+            $this->form_validation->set_message('address_check', 'This {field} already exists');
+            return false;               
+        }else{
+            return true;
+        } 
+   }
      protected function loadhelper(){
         $this->load->database();
         $this->load->helper(['url','form']);

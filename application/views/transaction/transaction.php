@@ -175,7 +175,7 @@ window.onbeforeunload = function() {
                     </span>
                 </div>
                 <div class="col-xs-6">
-
+                    <b>Transaction ID:</b> <?php echo transaction_id ?>
                 </div>
                 <div class="col-xs-6">
                       <?php date_default_timezone_set('Asia/Taipei'); ?>
