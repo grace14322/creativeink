@@ -93,7 +93,11 @@ $('#quantityToAdd').keypress(function (event) {
             return isInteger(event, this)
 });
 $('#setQuantity').keypress(function (event) {
-            return isInteger(event, this)
+           return isInteger(event, this)
+}).keydown(function(event){
+  if ( event.keyCode == 46 || event.keyCode == 8 ) {
+			return true;
+		}
 });
 $('#productprice').keypress(function (event) {
             return isNumber(event, this)
@@ -108,33 +112,28 @@ $('#productprice').keypress(function (event) {
 function isNumber(evt, element) {
 
         var charCode = (evt.which) ? evt.which : event.keyCode
-
-        if (
-            (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
-            (charCode < 48 || charCode > 57))
-            return false;
-
-        return true;
-    }
-function isNumber(evt, element) {
-
-        var charCode = (evt.which) ? evt.which : event.keyCode
-
-        if (
-            (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
-            (charCode < 48 || charCode > 57))
-            return false;
-
+        if(charCode == 8){
+          return true;
+        }else{
+          if (
+              (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
+              (charCode < 48 || charCode > 57))
+              return false;
+        }
         return true;
     }
 
 function isInteger(evt, element) {
 
         var charCode = (evt.which) ? evt.which : event.keyCode
+          console.log(charCode)
 
-        if (
-            (charCode < 48 || charCode > 57))
-            return false;
-
+            if(charCode == 8){
+              return true;
+            }else{
+              if (
+                  (charCode < 48 || charCode > 57))
+                  return false;
+            }
         return true;
 }
