@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2016 at 03:40 PM
+-- Generation Time: Apr 12, 2016 at 06:30 AM
 -- Server version: 5.6.25
 -- PHP Version: 5.5.27
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `emailreset` (
   `user_id` int(11) NOT NULL,
   `email_slug` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `emailreset`
@@ -115,7 +115,12 @@ INSERT INTO `emailreset` (`id`, `user_id`, `email_slug`, `created_at`) VALUES
 (29, 8, '0zgOOp1OS9E6MvubDFn0', '2016-04-02 06:55:38'),
 (30, 1, '1oF22ScghQj9QvQEkA9f', '2016-04-02 07:13:35'),
 (31, 8, 'srZaScaV1WrQZTDSnL6v', '2016-04-05 03:46:12'),
-(32, 8, 'bWwhyLt5ck6COXTXDxOI', '2016-04-05 10:22:51');
+(32, 8, 'bWwhyLt5ck6COXTXDxOI', '2016-04-05 10:22:51'),
+(33, 1, '7xY6XoCUj6172CLrspX5', '2016-04-12 02:48:58'),
+(34, 1, 'rscLkdyIXEEEEgyMhYSP', '2016-04-12 02:49:18'),
+(35, 1, 'mmOD8pT9riJ250V2sZyn', '2016-04-12 02:49:54'),
+(36, 1, 'NEgR8f7tWJZzbFBvkb98', '2016-04-12 03:00:53'),
+(37, 1, 'lRnLHNugnAdZPjLK1zRU', '2016-04-12 03:01:19');
 
 -- --------------------------------------------------------
 
@@ -128,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `tr_id` varchar(255) NOT NULL,
   `pr_id` int(11) NOT NULL,
   `item_quantity` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `items`
@@ -144,7 +149,13 @@ INSERT INTO `items` (`item_id`, `tr_id`, `pr_id`, `item_quantity`) VALUES
 (20, 'L6pUXkYf7MT', 14, 20),
 (21, 'WHgq0hI936v', 18, 20),
 (22, 'sKWPW4sFNdl', 17, 10),
-(23, 'vnCPaT7qpTK', 13, 2);
+(23, 'vnCPaT7qpTK', 13, 2),
+(24, 'zAh1chAbgir', 21, 1),
+(25, 'aczeun18eBV', 14, 1),
+(26, 'NS4vTSNSsBm', 11, 5),
+(27, 'NS4vTSNSsBm', 17, 5),
+(28, 'GNUM2L2ayQI', 10, 5),
+(29, 'QKFNdJj78YY', 14, 2);
 
 -- --------------------------------------------------------
 
@@ -179,7 +190,7 @@ INSERT INTO `products` (`pr_id`, `cat_id`, `pr_name`, `pr_quantity`, `pr_price`,
 (18, 15, 'Magic mug w/ customized design', 100, 150, '2016-04-06 02:11:13', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (19, 15, 'Plain Mug', 100, 50, '2016-04-06 02:11:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (20, 13, 'Safety Long Sleeves-Free Size', 100, 300, '2016-04-06 02:14:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(21, 17, 'Business Card', 200, 50, '2016-04-06 02:15:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(21, 17, 'Business Card', 205, 50, '2016-04-09 05:52:53', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -201,15 +212,20 @@ CREATE TABLE IF NOT EXISTS `transaction` (
 --
 
 INSERT INTO `transaction` (`tr_id`, `user_id`, `cu_id`, `br_id`, `total`, `tr_at`) VALUES
+('aczeun18eBV', 9, 0, 1, '300', '2016-04-09 09:24:43'),
 ('aK8q0n4XpPv', 9, 0, 1, '5000', '2016-03-01 02:22:48'),
 ('DUZWajVryRw', 9, 0, 1, '5000', '2016-04-06 02:17:08'),
 ('F1klk7UaV2y', 9, 0, 1, '15000', '2016-02-01 02:18:59'),
+('GNUM2L2ayQI', 9, 0, 1, '250', '2016-04-11 05:58:40'),
 ('J4vAwPJRvPr', 11, 0, 2, '8000', '2016-02-01 02:19:51'),
 ('J89R1omH4JB', 12, 0, 2, '1500', '2016-03-01 02:22:10'),
 ('L6pUXkYf7MT', 9, 0, 1, '6000', '2016-01-01 02:26:07'),
+('NS4vTSNSsBm', 9, 0, 1, '1500', '2016-04-11 01:34:54'),
+('QKFNdJj78YY', 9, 0, 1, '600', '2016-04-11 11:13:48'),
 ('sKWPW4sFNdl', 9, 0, 1, '2000', '2016-04-05 02:37:40'),
 ('vnCPaT7qpTK', 12, 0, 2, '400', '2016-04-08 08:09:15'),
-('WHgq0hI936v', 11, 0, 2, '3000', '2016-04-06 02:29:14');
+('WHgq0hI936v', 11, 0, 2, '3000', '2016-04-06 02:29:14'),
+('zAh1chAbgir', 9, 0, 1, '50', '2016-04-09 05:53:36');
 
 -- --------------------------------------------------------
 
@@ -230,19 +246,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `username`, `email`, `password`, `gender`, `br_id`, `ustype_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Grace ', 'Braganza', 'grace14322', 'grace14322@gmail.com', '15e5c87b18c1289d45bb4a72961b58e8', '2', 1, 1, '2016-04-02 07:19:55', '2016-04-02 07:19:55', '2016-04-02 07:19:55'),
+(1, 'Grace ', 'Braganza', 'grace14322', 'grace14322@gmail.com', '15e5c87b18c1289d45bb4a72961b58e8', '2', 1, 1, '2016-04-12 04:09:19', '2016-04-12 04:09:19', '2016-04-12 04:09:19'),
 (8, 'Baby Anne', 'Lutap', 'babyanne', 'babyanne@gmail.com', 'a21810a01d3fe0df4291d7d3e7abbd1c', '2', 1, 2, '2016-04-05 03:29:31', '2016-04-05 03:29:31', '2016-04-05 03:29:31'),
 (9, 'Jamir', 'Medina', 'jamir', 'jamir@gmail.com', 'c6f2088059e98c3da5e0f1529e915d09', '1', 1, 3, '2016-04-02 06:04:03', '2016-04-02 06:04:03', '2016-04-02 06:04:03'),
 (10, 'Armand', 'Navarro', 'armand', 'armand@yahoo.com', 'd138f04ec7016a21acc2ae19ddc708bc', '1', 2, 2, '2016-03-31 05:00:48', '2016-03-31 05:00:48', '2016-03-31 05:00:48'),
 (11, 'Gab', 'Perez', 'gab', 'gab@yahoo.com', '639bee393eecbc62256936a8e64d17b1', '1', 2, 3, '2016-03-27 23:56:47', '2016-03-27 23:56:47', '2016-03-27 23:56:47'),
-(12, 'Kristine', 'Robedillo', 'kristine', 'kristine@yahoo.com', '002f48e213c339f5d1d839185dcc8e7f', '2', 2, 3, '2016-04-08 08:27:12', '2016-04-08 08:27:12', '2016-04-08 08:27:12');
+(12, 'Kristine', 'Robedillo', 'kristine', 'kristine@yahoo.com', '002f48e213c339f5d1d839185dcc8e7f', '2', 2, 3, '2016-04-08 08:27:12', '2016-04-08 08:27:12', '2016-04-08 08:27:12'),
+(13, 'Jean', 'Villador', 'jean', 'jean@gmail.com', 'b71985397688d6f1820685dde534981b', '2', 1, 3, '2016-04-11 06:03:24', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -354,12 +371,12 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `emailreset`
 --
 ALTER TABLE `emailreset`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `products`
 --
@@ -369,7 +386,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `user_type`
 --

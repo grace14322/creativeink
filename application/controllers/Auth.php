@@ -202,9 +202,9 @@ class Auth extends CI_Controller {
 		}
 		public function resetpassword()
 		{
-				$this->load->database();
+             $this->load->database();
 			 $this->load->helper(array('form', 'url'));
- 		 		$this->load->library('session');
+ 		     $this->load->library('session');
 
 			 $npassword = md5($_POST['npass']);
 			 $vpassword = md5($_POST['vpass']);

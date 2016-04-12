@@ -123,7 +123,7 @@ class Transaction extends CI_Controller {
 			$this->loadhelper();
 			$password = md5($this->input->get('password'));
 			$br_id = $this->input->get('br_id');
-			$sqlx = $this->db->query("SELECT * from users where br_id = ".$br_id." AND password='".$password."'");
+			$sqlx = $this->db->query("SELECT * from users where (br_id = ".$br_id." OR ustype_id = '1')AND password='".$password."'");
 			$num_rows = $sqlx->num_rows();
 			echo $num_rows;
 	}
