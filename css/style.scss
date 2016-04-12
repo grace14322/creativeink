@@ -55,6 +55,7 @@ $footerBackgroundColor: #343434 ;
     background-color: $navbarBackgroundColor;
     border-color: $navbarBorderColor;
     padding-bottom:10px;
+    border-radius:0px;
 }
 .navbar-custom .navbar-nav>li>a {
     color: $navbarFontColor;

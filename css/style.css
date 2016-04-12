@@ -21,7 +21,7 @@
 */
 .navbar { padding-bottom: 3px; }
 
-.navbar-custom { background-color: #1ca3a0; border-color: #17c9c5; padding-bottom: 10px; }
+.navbar-custom { background-color: #1ca3a0; border-color: #17c9c5; padding-bottom: 10px; border-radius: 0px; }
 
 .navbar-custom .navbar-nav > li > a { color: #FFF; }
 

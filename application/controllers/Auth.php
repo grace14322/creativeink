@@ -91,7 +91,7 @@ class Auth extends CI_Controller {
 
     public function logout()
     {
-        $this->load->database();
+       $this->load->database();
        $this->load->helper(array('form', 'url'));
 
         $this->load->library('form_validation');
@@ -177,7 +177,6 @@ class Auth extends CI_Controller {
 		}
 		public function reset()
 		{
-            $this->is_logged_in();
 			$this->load->database();
 		 $this->load->helper(array('form', 'url'));
 		   $this->load->library('session');
@@ -199,22 +198,22 @@ class Auth extends CI_Controller {
 				$this->load->view('auth\resetpassword', $data);
 				$this->load->view('template\footer', $data);
 			endif;
-                
+
 		}
 		public function resetpassword()
 		{
 				$this->load->database();
 			 $this->load->helper(array('form', 'url'));
  		 		$this->load->library('session');
-            
+
 			 $npassword = md5($_POST['npass']);
 			 $vpassword = md5($_POST['vpass']);
 			 $user_id = $_POST['user_id'];
 			 $t = $_POST['slug'];
 			 $message = '';
-            
+
             $password = $_POST['npass'];
-            
+
             if(strlen($password) > 20) {
              $message = 'Password is too long, the maximum characters is 20';
              $message = $this->session->set_flashdata('error-message', $message);
@@ -249,6 +248,9 @@ class Auth extends CI_Controller {
 		}
      protected function is_logged_in()
     {
+			$this->load->database();
+		 $this->load->helper(array('form', 'url'));
+			$this->load->library('session');
         if(!$this->session->userdata('user_id')){
             redirect('/');
         }
