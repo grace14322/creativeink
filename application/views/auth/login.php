@@ -12,7 +12,7 @@
                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                               <strong>Success</strong>
                                <p><?php echo $_SESSION['success-message'] ?></p>
-                            </div>
+                            </div> 
                        <?php endif; unset($_SESSION['success-message']);?>
                        <?php if( isset($_SESSION['error-message']) ): ?>
                            <div class="alert alert-danger alert-dismissible fade in" role="alert">

@@ -169,6 +169,12 @@ window.onbeforeunload = function() {
                   <?php echo $branch->br_address; ?>
               </p>
              <?php endforeach; ?>
+           <p class="text-center">
+              TIN: 008-540-120-000
+           </p>
+            <p class="text-center">
+              Contact No. (0916) 3134255|(02) 5109026
+           </p>
              <div class="row">
                 <div class="col-xs-6">
                     <b>Cashier:</b> <?php echo $this->session->userdata('firstname').' '.$this->session->userdata('lastname'); ?>
