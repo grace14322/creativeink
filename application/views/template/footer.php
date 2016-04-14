@@ -151,6 +151,7 @@ $(document).ready(function() {
               }
 
                 return total ;
+             
             }
        },
         methods:{

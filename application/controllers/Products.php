@@ -65,7 +65,11 @@ class Products extends CI_Controller {
 
         $this->is_logged_in();
 
-        $this->form_validation->set_rules('productname', 'Product Name', 'required');
+        $this->form_validation->set_rules('productname', 'Product Name', 'required|is_unique[products.pr_name]',
+            array(
+                'is_unique'     => 'Product already added or has similar product name'
+                )
+            );
         $this->form_validation->set_rules('productquantity', 'Product Quantity', 'required');
         $this->form_validation->set_rules('productprice', 'Product Price', 'required');
         $this->form_validation->set_rules('category', 'Category', 'required');
@@ -73,9 +77,6 @@ class Products extends CI_Controller {
         {
                 $_SESSION['error-message'] = validation_errors();
         }else{
-            $sql = $this->db->query("select * from products where pr_name LIKE '%".$_POST['productname']."%'");
-            $numrows = $sql->num_rows();
-            if($numrows == 0):
             $data = [
              'pr_name'      => $_POST['productname'],
              'pr_quantity'  => $_POST['productquantity'],
@@ -86,11 +87,7 @@ class Products extends CI_Controller {
         $this->db->insert('products',$data);
 
         $_SESSION['success-message']=" Product Added";
-            header('location:'.base_url().'products');
-                exit(0);
-            else:
-                 $_SESSION['error-message']= "Product already added or has similar product name";
-            endif;
+            
         }
 
 
@@ -164,8 +161,15 @@ class Products extends CI_Controller {
         $this->load->database();
 
         $this->is_logged_in();
-
-        $this->form_validation->set_rules('productname', 'Product Name', 'required');
+        $sqlx = $this->db->query("SELECT * from products where pr_id = ".$_POST['id']);
+        $rownum = $sqlx->num_rows();
+        $productnamex = $sqlx->row();
+        $callback = '';
+        if($_POST['productname'] != $productnamex->pr_name){
+               $callback = '|callback_productname_check';
+        }
+        
+        $this->form_validation->set_rules('productname', 'Product Name', 'required'.$callback);
         $this->form_validation->set_rules('productprice', 'Product Price', 'required');
         $this->form_validation->set_rules('category', 'Category', 'required');
         if ($this->form_validation->run() == FALSE)
@@ -188,6 +192,17 @@ class Products extends CI_Controller {
 
         header('location: '.base_url().'products/view?id='.$_POST['id']);
     }
+    public function productname_check($productname) { 
+    $this->loadhelper();
+    $sql = $this->db->query("SELECT * from products where pr_name ='".$productname."' ");
+    $numrow = $sql->num_rows();
+        if($numrow != 0){
+            $this->form_validation->set_message('productname_check', 'Product has similar {field} ');
+            return false;               
+        }else{
+            return true;
+        } 
+   }
 		public function updateQuantity()
 		{
 			$this->loadhelper();

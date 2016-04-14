@@ -76,7 +76,7 @@ $this->load->helper(array('form', 'url'));
 
             $_SESSION['success-message']=" Product Updated";
             else:
-                 $_SESSION['error-message']= "Category has almost same content or has similar category name";
+                 $_SESSION['error-message']= "Category has similar category name";
             endif;
         }
         
