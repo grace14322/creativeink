@@ -92,6 +92,8 @@ section.login div.login-holder { min-width: 0px; min-height: 80px; border: solid
 
 .btn-login:active { background-color: #177270; }
 
+table tbody tr:hover { background-color: #ececec; }
+
 .group-field { padding-top: 10px; padding-left: 10px; }
 
 .line { border-bottom: solid 1px #ededed; margin-top: 25px; }

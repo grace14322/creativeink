@@ -225,7 +225,9 @@ section.login {
 .btn-login:active {
     background-color: #177270;
 }
-
+table tbody tr:hover{
+   background-color:#ececec;
+}
 .group-field{ padding-top:10px;padding-left:10px; }
 .line { border-bottom: solid 1px rgb(237,237,237); margin-top:25px; }
 

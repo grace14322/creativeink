@@ -103,10 +103,14 @@
     <!-- Datatables -->
     <script src="<?php echo base_url() ?>plugins/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url() ?>plugins/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" class="<?php echo base_url() ?>plugins/datatables-plugins/api/sum().js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>plugins/jQuery.print-master/jQuery.print.js"></script>
 <script>
 $(document).ready(function() {
     $('#photo-list').DataTable();
+
+    var table = $('#photo-list').DataTable();
+    console.log(table.column( 5 ).data().sum());
 });
 </script>
 <script src="<?php echo base_url(); ?>js/custom.js"></script>
@@ -150,7 +154,7 @@ $(document).ready(function() {
                   }
               }
 
-                return total ;
+                return total.toFixed(2) ;
             }
        },
         methods:{

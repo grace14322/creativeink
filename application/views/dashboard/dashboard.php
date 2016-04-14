@@ -93,7 +93,7 @@
       </div>
       <div class="modal-body">
           <div class="" id="itemContent">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
                       <th class="text-center">Transaction ID</th>
@@ -103,13 +103,15 @@
                       <th class="text-center">Value</th>
                     </tr>
                 </thead>
-                      <tr  v-for="i in items">
-                          <td class="text-center">{{ i.transaction_id }}</td>
-                          <td class="text-center">{{ i.pr_name }}</td>
-                          <td class="text-center">{{ i.quantity }}</td>
-                          <td class="text-center">{{ i.price }}</td>
-                          <td class="text-center">{{ i.quantity * i.price  }}</td>
-                      </tr>
+                 <tbody>
+                   <tr class="xxa" v-for="i in items">
+                       <td class="text-center">{{ i.transaction_id }}</td>
+                       <td class="text-center">{{ i.pr_name }}</td>
+                       <td class="text-center">{{ i.quantity }}</td>
+                       <td class="text-center">{{ i.price }}</td>
+                       <td class="text-center">{{ i.quantity * i.price  }}</td>
+                   </tr>
+                 </tbody>
               </table>
           </div>
       </div>
