@@ -23,7 +23,7 @@ class Products extends CI_Controller {
 
 
         $this->loadhelper();
-        $sql = $this->db->query('SELECT * FROM products');
+        $sql = $this->db->query("SELECT * FROM products p WHERE p.deleted_at = '0000-00-00 00:00:00'");
         $row = $sql->num_rows();
 
 
@@ -55,15 +55,27 @@ class Products extends CI_Controller {
         $this->load->view('products\products',  $data);
         $this->load->view('template\footer',  $data);
 	}
+    
+    public function trash ($id)
+    {
+
+       $this->loadhelper();
+        
+       $data = [
+            'deleted_at'    => date('Y-m-d H:i:s'),
+                ];
+     
+        $where = "pr_id = '$id'"; 
+          
+        $this->db->update('products', $data, $where);
+
+       $_SESSION['success-message']=" Product Deleted";
+
+       header('location:'.base_url().'products');
+    }
 
     public function create(){
         $this->loadhelper();
-
-        $this->load->library('form_validation');
-        $this->load->library('session');
-        $this->load->database();
-
-        $this->is_logged_in();
 
         $this->form_validation->set_rules('productname', 'Product Name', 'required|is_unique[products.pr_name]',
             array(
@@ -82,8 +94,8 @@ class Products extends CI_Controller {
              'pr_quantity'  => $_POST['productquantity'],
              'pr_price'     => $_POST['productprice'],
              'cat_id'       => $_POST['category'],
+            'created_at'    => date('Y-m-d H:i:s'),
         ];
-
         $this->db->insert('products',$data);
 
         $_SESSION['success-message']=" Product Added";
@@ -95,11 +107,7 @@ class Products extends CI_Controller {
     }
 
     public function view(){
-        $this->load->database();
-
-        $this->load->helper(['url','form']);
-
-        $this->load->library('session');
+         $this->loadhelper();
 
         $pr_id = $_GET['id'];
         $sql = $this->db->query("select p.*, c.* from products p, category c where pr_id = '".$pr_id."' AND p.cat_id = c.cat_id");
@@ -156,15 +164,12 @@ class Products extends CI_Controller {
     public function update()
     {
         $this->loadhelper();
-        $this->load->library('form_validation');
-        $this->load->library('session');
-        $this->load->database();
 
-        $this->is_logged_in();
         $sqlx = $this->db->query("SELECT * from products where pr_id = ".$_POST['id']);
         $rownum = $sqlx->num_rows();
         $productnamex = $sqlx->row();
         $callback = '';
+    
         if($_POST['productname'] != $productnamex->pr_name){
                $callback = '|callback_productname_check';
         }
@@ -180,10 +185,11 @@ class Products extends CI_Controller {
              'pr_name'      => $_POST['productname'],
              'pr_price'     => $_POST['productprice'],
              'cat_id'       => $_POST['category'],
+             'updated_at'    => date('Y-m-d H:i:s'),
             ];
             
             $where = "pr_id = ".$_POST['id'];
-            
+          
             $this->db->update('products', $data, $where);
             
             $_SESSION['success-message']=" Product Updated";

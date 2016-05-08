@@ -119,7 +119,7 @@ $(document).ready(function() {
 
         ready:function(){
             this.getcategories();
-            this.getproducts();
+            this.getproducts(); 
         },
         data:{
             total:0,
@@ -136,6 +136,7 @@ $(document).ready(function() {
             categories:[],
             selcat:'',
             products:[],
+            idToDelete:'',
         },
        computed: {
             // a computed getter
@@ -154,6 +155,9 @@ $(document).ready(function() {
             }
        },
         methods:{
+                getIdToDelete:function($id){
+                this.idToDelete = $id;
+                },
            getproducts:function(){
              this.$http.get('<?php echo base_url('transaction/getProducts') ?>',function(result){
                 this.products = result;
@@ -346,7 +350,9 @@ $('body').removeAttr('style');
                        })
             }
         }
+        
     })
+   
 </script>
 </body>
 

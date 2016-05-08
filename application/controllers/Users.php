@@ -67,6 +67,67 @@ class Users extends CI_Controller {
         $this->load->view('user/user', $data);
         $this->load->view('template/footer', $data);
 	}
+    
+    public function deactivate()
+    {
+       $this->load->database();
+       $this->load->helper(array('form', 'url'));
+
+        $this->load->library('form_validation');
+        $this->load->library('session');
+
+        $_SESSION['success-message']=" User Deleted";
+
+        echo $_SESSION['success-message'];
+         header('location:'.base_url().'users');
+    }
+    
+	public function branch()
+	{
+        $this->loadhelper();
+	   $br_id = $this->input->get('br_id');
+		$this->load->library('session');
+		$this->load->database();
+        
+        $ext = "select u.*, ut.*, b.br_name  from users u, user_type ut, branch b where u.ustype_id = ut.ustype_id and ut.ustype_id = u.ustype_id and u.br_id = '".$br_id."' and b.br_id = '".$br_id."'";
+
+        $sql = $this->db->query($ext);
+        $row = $sql->num_rows();
+        $users = "";
+        if($row == 0){
+            $users = 0;
+        }else{
+            $users = $sql->result();
+        }
+        $sql = $this->db->query('select * from branch');
+        $row = $sql->num_rows();
+
+        $branch = "";
+        if($row == 0){
+            $branch = 0;
+        }else{
+            $branch = $sql->result();
+        }
+        $sql = $this->db->query('select * from user_type');
+        $row = $sql->num_rows();
+
+        $user_type = "";
+        if($row == 0){
+            $user_type = 0;
+        }else{
+            $user_type = $sql->result();
+        }
+         $data = [
+            'branches' => $branch,
+            'users'  => $users,
+            'user_types' => $user_type,
+        ];
+
+		$this->load->view('template/header', $data);
+        $this->load->view('user/user', $data);
+        $this->load->view('template/footer', $data);
+        
+	}
 
     public function viewuser(){
         $this->loadhelper();

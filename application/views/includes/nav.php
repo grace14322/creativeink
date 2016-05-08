@@ -25,7 +25,7 @@
                       <?php if(current_url() == base_url() || current_url() == base_url('auth/postlogin') || current_url() == base_url('auth/forgotpassword') || current_url() == base_url('auth/reset')): ?>
                           <?php $hidden = 'hidden'; ?>
                       <?php endif; ?>
-                 <li class="<?php echo $hidden ?>" class="logout"><a style="    margin-top: 5px;" href="#" data-toggle="modal" data-target="#logoutModal"><i class="glyphicon glyphicon-off"></i> Log out</a></li>
+                 <li class="<?php echo $hidden ?>" class="logout"><a style="margin-top: 5px;" href="#" data-toggle="modal" data-target="#logoutModal"><i class="glyphicon glyphicon-off"></i> Log out</a></li>
             </ul>    
             <!-- /.navbar-collapse -->
         </div>
