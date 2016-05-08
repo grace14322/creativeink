@@ -51,9 +51,9 @@ class Products extends CI_Controller {
             'categories'  => $categories,
             'products'    => $products,
         ];
-		$this->load->view('template\header',  $data);
-        $this->load->view('products\products',  $data);
-        $this->load->view('template\footer',  $data);
+		$this->load->view('template/header',  $data);
+        $this->load->view('products/products',  $data);
+        $this->load->view('template/footer',  $data);
 	}
 
     public function create(){
@@ -87,7 +87,7 @@ class Products extends CI_Controller {
         $this->db->insert('products',$data);
 
         $_SESSION['success-message']=" Product Added";
-            
+
         }
 
 
@@ -148,9 +148,9 @@ class Products extends CI_Controller {
             'categories'    => $categories,
             'cat_name'      => $cat_name,
         ];
-		$this->load->view('template\header',  $data);
-        $this->load->view('products\productview',  $data);
-        $this->load->view('template\footer',  $data);
+		$this->load->view('template/header',  $data);
+        $this->load->view('products/productview',  $data);
+        $this->load->view('template/footer',  $data);
     }
 
     public function update()
@@ -168,7 +168,7 @@ class Products extends CI_Controller {
         if($_POST['productname'] != $productnamex->pr_name){
                $callback = '|callback_productname_check';
         }
-        
+
         $this->form_validation->set_rules('productname', 'Product Name', 'required'.$callback);
         $this->form_validation->set_rules('productprice', 'Product Price', 'required');
         $this->form_validation->set_rules('category', 'Category', 'required');
@@ -181,27 +181,27 @@ class Products extends CI_Controller {
              'pr_price'     => $_POST['productprice'],
              'cat_id'       => $_POST['category'],
             ];
-            
+
             $where = "pr_id = ".$_POST['id'];
-            
+
             $this->db->update('products', $data, $where);
-            
+
             $_SESSION['success-message']=" Product Updated";
-          
-        }        
+
+        }
 
         header('location: '.base_url().'products/view?id='.$_POST['id']);
     }
-    public function productname_check($productname) { 
+    public function productname_check($productname) {
     $this->loadhelper();
     $sql = $this->db->query("SELECT * from products where pr_name ='".$productname."' ");
     $numrow = $sql->num_rows();
         if($numrow != 0){
             $this->form_validation->set_message('productname_check', 'Product has similar {field} ');
-            return false;               
+            return false;
         }else{
             return true;
-        } 
+        }
    }
 		public function updateQuantity()
 		{

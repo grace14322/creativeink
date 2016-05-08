@@ -21,43 +21,43 @@ class Category extends CI_Controller {
 	public function index()
 	{
 $this->load->helper(array('form', 'url'));
-        
+
         $this->load->library('form_validation');
         $this->load->library('session');
-        
+
         $this->load->database();
-        
+
         $this->is_logged_in();
-        
+
         $sql = $this->db->query('SELECT * FROM category');
         $row = $sql->num_rows();
-        
-        
+
+
         $category = "";
-        
+
         if($row == 0){
             $category = '<span class="text-center">No category available</span>';
         }else{
             $category = $sql->result();
         }
-        
+
         $data = [
             'categories'  => $category,
         ];
-        
+
 		$this->load->view('template/header', $data);
         $this->load->view('category/category', $data);
         $this->load->view('template/footer', $data);
 	}
     public function update(){
         $this->load->database();
-        
+
         $this->load->helper(['url','form']);
-        $this->load->library('form_validation');    
+        $this->load->library('form_validation');
         $this->load->library('session');
-        
+
         $this->is_logged_in();
-        
+
         $this->form_validation->set_rules('categoryname', 'Category Name', 'required|alpha');
         if ($this->form_validation->run() == FALSE)
         {
@@ -79,30 +79,30 @@ $this->load->helper(array('form', 'url'));
                  $_SESSION['error-message']= "Category has similar category name";
             endif;
         }
-        
+
         redirect('category/view?id='.$_POST['cat_id']);
     }
     public function view(){
         $this->load->database();
-        
+
         $this->load->helper(['url','form']);
-        
+
         $this->load->library('session');
-        
+
         $cat_id = $_GET['id'];
-        
+
         $sql = $this->db->query("SELECT * from category where cat_id = '".$cat_id."'");
         $numrow = $sql->num_rows();
-        
+
         if($numrow == 0){
            $categories = 0;
         } else {
            $categories = $sql->result();
         }
-        
+
         $sql = $this->db->query("select c.*, p.* from category c, products p where c.cat_id = '".$cat_id."' and p.cat_id = c.cat_id");
         $numrow = $sql->num_rows();
-        
+
         if($numrow == 0){
            $products = 0;
         } else {
@@ -117,22 +117,22 @@ $this->load->helper(array('form', 'url'));
             'cat_name'      => $cat_name,
             'cat_id'        => $cat_id,
         ];
-        
-		$this->load->view('template\header',  $data);
-        $this->load->view('category\categoryview',  $data);
-        $this->load->view('template\footer',  $data);
+
+		$this->load->view('template/header',  $data);
+        $this->load->view('category/categoryview',  $data);
+        $this->load->view('template/footer',  $data);
     }
-    
+
     public function create(){
-        
+
         $this->load->helper(array('form', 'url'));
-        
+
         $this->load->library('form_validation');
         $this->load->library('session');
         $this->load->database();
-        
+
         $this->is_logged_in();
-        
+
         $this->form_validation->set_rules('categoryname', 'Category Name', 'required|alpha');
         if ($this->form_validation->run() == FALSE)
         {
@@ -153,17 +153,17 @@ $this->load->helper(array('form', 'url'));
                  $_SESSION['error-message']= "Category already added or has similar category name";
             endif;
         }
-        
-       
+
+
         header('location:'.base_url().'category');
     }
-    
-    
+
+
     protected function is_logged_in()
     {
         if(!$this->session->userdata('user_id')){
             redirect('/');
         }
-       
+
     }
 }

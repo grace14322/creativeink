@@ -21,25 +21,25 @@ class Master extends CI_Controller {
 
 	public function index()
 	{
-        
-        
+
+
         $this->load->helper(['form', 'url']);
        $this->load->library('session');
-        
+
          $this->is_logged_in();
         header('Access-Control-Allow-Origin: *');
-		$this->load->view('template\header');
-        $this->load->view('auth\login');
-        $this->load->view('template\footer');
+		$this->load->view('template/header');
+        $this->load->view('auth/login');
+        $this->load->view('template/footer');
 	}
-    
+
     protected function is_logged_in()
     {
         if($this->session->userdata('user_id')){
             if($this->session->userdata('ustype_id') == 3){
                 redirect('transaction');
             }
-            
+
             redirect('dashboard');
         }
         return false;

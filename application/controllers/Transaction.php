@@ -51,9 +51,9 @@ class Transaction extends CI_Controller {
             'products'    => $products,
 						'branches'		=> $branch->result(),
         ];
-		$this->load->view('template\header', $data);
-        $this->load->view('transaction\transaction', $data);
-        $this->load->view('template\footer', $data);
+		$this->load->view('template/header', $data);
+        $this->load->view('transaction/transaction', $data);
+        $this->load->view('template/footer', $data);
 	}
   public function getItem(){
 		 $this->loadhelper();
