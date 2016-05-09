@@ -38,13 +38,7 @@ class Branch extends CI_Controller {
 
         public function create(){
 
-        $this->load->helper(array('form', 'url'));
-
-        $this->load->library('form_validation');
-        $this->load->library('session');
-        $this->load->database();
-
-        $this->is_logged_in();
+        $this->loadhelper();
 
         $this->form_validation->set_rules('branchname', 'Branch Name', 'required');
         $this->form_validation->set_rules('address', 'Address', 'required|is_unique[branch.br_address]',
@@ -68,13 +62,18 @@ class Branch extends CI_Controller {
 
         header('location:'.base_url().'branch');
     }
+    public function deletebr()
+    {
+        $this->loadhelper();
 
+        $_SESSION['success-message']=" Branch Deleted";
+
+        echo $_SESSION['success-message'];
+    
+        header('location:'.base_url().'branch');
+    }
     public function view(){
-        $this->load->database();
-
-        $this->load->helper(['url','form']);
-
-        $this->load->library('session');
+        $this->loadhelper();
 
         $br_id = $_GET['id'];
         $sql = $this->db->query("select b.* from branch b where br_id = '".$br_id."' ");
@@ -113,13 +112,7 @@ class Branch extends CI_Controller {
 
     public function update()
     {
-        $this->load->helper(array('form', 'url'));
-
-        $this->load->library('form_validation');
-        $this->load->library('session');
-        $this->load->database();
-
-        $this->is_logged_in();
+        $this->loadhelper();
 
         $this->form_validation->set_rules('branchname', 'Branch Name', 'required');
         $sqlx = $this->db->query("SELECT * from branch where br_id = ".$_POST['id']);
@@ -163,6 +156,7 @@ class Branch extends CI_Controller {
         }
    }
      protected function loadhelper(){
+        $this->load->library('form_validation');
         $this->load->database();
         $this->load->helper(['url','form']);
         $this->load->library('session');

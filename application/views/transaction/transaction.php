@@ -173,7 +173,7 @@ window.onbeforeunload = function() {
               TIN: 008-540-120-000
            </p>
             <p class="text-center">
-              Contact No. (0916) 3134255|(02) 5109026
+              Contact No. (0916) 3134255|(0917) 2236721
            </p>
              <div class="row">
                 <div class="col-xs-6">
@@ -215,9 +215,10 @@ window.onbeforeunload = function() {
             </div>
       </div>
       <hr>
-      <p class="text-right"><b>TOTAL:</b> {{ total.toFixed(2) }}</p>
-      <p class="text-right"><b>Cash:</b> {{ cash }}</p>
-      <p class="text-right"><b>Change Due:</b> {{ changedue }}</p>
+
+      <p class="text-right"><b>TOTAL: ₱</b> {{ total }}</p>
+      <p class="text-right"><b>Cash: ₱</b> {{ cash }}</p>
+      <p class="text-right"><b>Change Due: ₱</b> {{ changedue }}</p>
   </div>
   <div class="modal-footer">
       <button type="button" name="button" class="btn btn-primary" v-on:click="printreceipt()">Print</button>
