@@ -20,7 +20,7 @@ if (i<10)
   }
 return i;
 }
-
+var counter = 0;
 function formatAMPM(date) {
   var today=new Date();
   var hours = today.getHours();
@@ -32,8 +32,10 @@ function formatAMPM(date) {
   minutes = minutes < 10 ? '0'+minutes : minutes;
   seconds = seconds < 10 ? '0'+seconds : seconds;
   var strTime = hours + ':' + minutes +':'+ seconds + ' ' + ampm;
+
   return strTime;
 }
+var url = '';
 
 startTime();
 

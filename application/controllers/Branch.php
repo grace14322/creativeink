@@ -31,14 +31,20 @@ class Branch extends CI_Controller {
         $data = [
                 'branches' => $branch,
         ];
-        $this->load->view('template/header', $data);
-        $this->load->view('branch/branch', $data);
-        $this->load->view('template/footer', $data);
+        $this->load->view('template\header', $data);
+        $this->load->view('branch\branch', $data);
+        $this->load->view('template\footer', $data);
 	}
 
         public function create(){
 
-        $this->loadhelper();
+        $this->load->helper(array('form', 'url'));
+
+        $this->load->library('form_validation');
+        $this->load->library('session');
+        $this->load->database();
+
+        $this->is_logged_in();
 
         $this->form_validation->set_rules('branchname', 'Branch Name', 'required');
         $this->form_validation->set_rules('address', 'Address', 'required|is_unique[branch.br_address]',
@@ -62,18 +68,13 @@ class Branch extends CI_Controller {
 
         header('location:'.base_url().'branch');
     }
-    public function deletebr()
-    {
-        $this->loadhelper();
 
-        $_SESSION['success-message']=" Branch Deleted";
-
-        echo $_SESSION['success-message'];
-    
-        header('location:'.base_url().'branch');
-    }
     public function view(){
-        $this->loadhelper();
+        $this->load->database();
+
+        $this->load->helper(['url','form']);
+
+        $this->load->library('session');
 
         $br_id = $_GET['id'];
         $sql = $this->db->query("select b.* from branch b where br_id = '".$br_id."' ");
@@ -105,14 +106,20 @@ class Branch extends CI_Controller {
             'br_name'       => $br_name,
             'br_address'    => $br_address,
         ];
-		$this->load->view('template/header',  $data);
-        $this->load->view('branch/branchview',  $data);
-        $this->load->view('template/footer',  $data);
+		$this->load->view('template\header',  $data);
+        $this->load->view('branch\branchview',  $data);
+        $this->load->view('template\footer',  $data);
     }
 
     public function update()
     {
-        $this->loadhelper();
+        $this->load->helper(array('form', 'url'));
+
+        $this->load->library('form_validation');
+        $this->load->library('session');
+        $this->load->database();
+
+        $this->is_logged_in();
 
         $this->form_validation->set_rules('branchname', 'Branch Name', 'required');
         $sqlx = $this->db->query("SELECT * from branch where br_id = ".$_POST['id']);
@@ -143,20 +150,19 @@ class Branch extends CI_Controller {
 
         header('location: '.base_url().'branch/view?id='.$_POST['id']);
     }
-
-    public function address_check($address) {
+    
+    public function address_check($address) { 
     $this->loadhelper();
      $sql = $this->db->query("SELECT * from branch where br_address ='".$address."' ");
      $numrow = $sql->num_rows();
         if($numrow != 0){
             $this->form_validation->set_message('address_check', 'This {field} already exists');
-            return false;
+            return false;               
         }else{
             return true;
-        }
+        } 
    }
      protected function loadhelper(){
-        $this->load->library('form_validation');
         $this->load->database();
         $this->load->helper(['url','form']);
         $this->load->library('session');

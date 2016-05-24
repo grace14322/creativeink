@@ -1,4 +1,4 @@
-     <div class="main-container container">
+<div class="main-container container">
         <div class="dashboard-header row shadow">
             <div class="admin-sidebar col-md-4">
                <div class="row">
@@ -28,7 +28,7 @@
                             </ul>
                        </div>
                     </div> 
-                    <?php endif; ?>     
+                    <?php endif; ?>
                     <div class="col-lg-12">
                         <div class="main-box no-header clearfix">
                             <div class="main-box-body clearfix">
@@ -45,6 +45,8 @@
                                           <?php if($users == 0): ?>
                                               <tr>
                                                   <td class="text-center" colspan ="4"><i>No User Yet</i></td>
+                                                  <td class="text-center" ></td>
+                                                  <td class="text-center" ></td>
                                               </tr>
                                           <?php else: ?>
                                               <?php foreach($users as $user): ?>
@@ -59,18 +61,18 @@
                                                     <td><?php echo $user->created_at ?></td>
                                                     <td>
                                                         <a href="#"><?php echo $user->email ?></a>
-                                                        <a href="#" data-toggle="modal" data-target="#deactivateModal" class="table-link danger">
+                                                  <!--      <a href="#" data-toggle="modal" data-target="#deactivateModal" class="table-link danger" v-on:click="getIdToDelete('<?php echo $user->user_id ?>')">
                                                             <span class="fa-stack pull-right">
                                                                 <i class="fa fa-square fa-stack-2x"></i>
                                                                 <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
                                                             </span>
-                                                        </a>
+                                                        </a> !-->
                                                         <a href="<?php echo base_url() ?>users/viewuser?id=<?php echo $user->user_id ?>" class="table-link">
                                                             <span class="fa-stack pull-right">
                                                                 <i class="fa fa-square fa-stack-2x"></i>
                                                                 <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
                                                             </span>
-                                                        </a>
+                                                        </a> 
                                                   <!--  </td>
                                                     <td style="width: 20%;">
                                                           <a href="#" class="table-link">
@@ -82,7 +84,7 @@
                                                         fa fa-check-circle-o!-->
                                                        </td>
                                                 </tr>
-                                                   <?php endif; ?>
+                                                <?php endif; ?>
                                                <?php endforeach; ?>
                                           <?php endif; ?>
 
@@ -95,24 +97,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Delete?</h4>
-          </div>
-          <div class="modal-body">
-              Are you sure you want to delete this user?
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Cancel</span></button>
-              <a href="<?php echo base_url('users/deactivate'); ?>" class="btn btn-primary pull-right">Yes</a>
-          </div>
-        </div>
-      </div>
     </div>
 <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">

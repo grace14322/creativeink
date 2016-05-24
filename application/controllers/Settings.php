@@ -7,9 +7,9 @@ class Settings extends CI_Controller{
 
     public function index(){
         $this->loadhelper();
-        $this->load->view('template/header');
-        $this->load->view('settings/settings');
-        $this->load->view('template/footer');
+        $this->load->view('template\header');
+        $this->load->view('settings\settings');
+        $this->load->view('template\footer');
     }
 
     public function updateinfo()

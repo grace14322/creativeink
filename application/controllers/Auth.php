@@ -19,12 +19,10 @@ class Auth extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 
-
-	public function index()
-	{
-
-
-	}
+ public function sessionexpired(){
+	  $this->load->library('session');
+		 $_SESSION['error-message'] = "Your Session has expired!";
+ }
     public function password_check($str)
     {
        if (preg_match('#[0-9]#', $str) && preg_match('#[a-zA-Z]#', $str)) {
@@ -108,9 +106,9 @@ class Auth extends CI_Controller {
 			$this->load->library('form_validation');
 			$this->load->library('session');
 
-				$this->load->view('template/header');
-				$this->load->view('auth/forgotpassword');
-				$this->load->view('template/footer');
+				$this->load->view('template\header');
+				$this->load->view('auth\forgotpassword');
+				$this->load->view('template\footer');
 		}
 		public function emailReset(){
 			$this->load->database();
@@ -152,7 +150,7 @@ class Auth extends CI_Controller {
             'charset'   => 'iso-8859-1'
 					);
 						$this->load->library('email', $config);
-						$this->email->set_newline("/r/n");
+						$this->email->set_newline("\r\n");
 						$this->email->from('creativeinkpos@gmail.com', 'Creativeink');
 						$this->email->to($this->input->post('email'));
 						$this->email->subject(' Password Reset ');
@@ -194,9 +192,9 @@ class Auth extends CI_Controller {
 				$data = [
 						'user_id' =>$user_id,
 				];
-				$this->load->view('template/header', $data);
-				$this->load->view('auth/resetpassword', $data);
-				$this->load->view('template/footer', $data);
+				$this->load->view('template\header', $data);
+				$this->load->view('auth\resetpassword', $data);
+				$this->load->view('template\footer', $data);
 			endif;
 
 		}

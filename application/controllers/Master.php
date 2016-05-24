@@ -1,4 +1,4 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Master extends CI_Controller {
@@ -21,16 +21,20 @@ class Master extends CI_Controller {
 
 	public function index()
 	{
-
-
         $this->load->helper(['form', 'url']);
        $this->load->library('session');
 
          $this->is_logged_in();
-        header('Access-Control-Allow-Origin: *');
-		$this->load->view('template/header');
-        $this->load->view('auth/login');
-        $this->load->view('template/footer');
+				$data = [
+					'is_in_login' => true,
+				];
+
+				header('Access-Control-Allow-Origin: *');
+		$this->load->view('template\header');
+        $this->load->view('auth\login');
+
+        $this->load->view('template\footer', $data);
+
 	}
 
     protected function is_logged_in()
@@ -44,4 +48,5 @@ class Master extends CI_Controller {
         }
         return false;
     }
+
 }

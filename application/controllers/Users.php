@@ -68,20 +68,6 @@ class Users extends CI_Controller {
         $this->load->view('template/footer', $data);
 	}
     
-    public function deactivate()
-    {
-       $this->load->database();
-       $this->load->helper(array('form', 'url'));
-
-        $this->load->library('form_validation');
-        $this->load->library('session');
-
-        $_SESSION['success-message']=" User Deleted";
-
-        echo $_SESSION['success-message'];
-         header('location:'.base_url().'users');
-    }
-    
 	public function branch()
 	{
         $this->loadhelper();
@@ -99,7 +85,7 @@ class Users extends CI_Controller {
         }else{
             $users = $sql->result();
         }
-        $sql = $this->db->query('select * from branch');
+        $sql = $this->db->query("SELECT * FROM branch");
         $row = $sql->num_rows();
 
         $branch = "";
@@ -203,7 +189,7 @@ class Users extends CI_Controller {
     public function update(){
         $this->loadhelper();
         $this->load->library('session');
-
+        
         $this->form_validation->set_rules('usertype', 'User type', 'required');
         $this->form_validation->set_rules('firstname', 'First Name', 'required');
         $this->form_validation->set_rules('lastname', 'Last Name', 'required');
@@ -214,9 +200,9 @@ class Users extends CI_Controller {
         if($_POST['email'] != $emailx->email){
                $callback = '|callback_email_check';
         }
-
+        
         $this->form_validation->set_rules('email', 'E-Mail', 'required|valid_email'.$callback);
-
+        
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         if ($this->form_validation->run() == FALSE)
         {
@@ -244,33 +230,33 @@ class Users extends CI_Controller {
 
         header('location:'.base_url().'users/viewuser?id='.$_POST['user_id']);
     }
-
-    public function email_check($email) {
+    
+    public function email_check($email) { 
     $this->loadhelper();
      $sql = $this->db->query("SELECT * from users where email ='".$email."' ");
      $numrow = $sql->num_rows();
         if($numrow != 0){
             $this->form_validation->set_message('email_check', 'This {field} already exists');
-            return false;
+            return false;               
         }else{
             return true;
-        }
+        } 
    }
-
+    
     public function changepass() {
         $this->loadhelper();
 
         $this->form_validation->set_rules('current', 'Password', 'required|max_length[20]');
-
+        
         $this->form_validation->set_message('max_length', '%s: the maximum characters is %s');
-
+        
         if ($this->form_validation->run() == FALSE)
         {
                 $_SESSION['error-message'] = validation_errors();
         }
         else
         {
-
+            
             $data = [
                 'password'  => md5($_POST['current']),
             ];
@@ -285,7 +271,7 @@ class Users extends CI_Controller {
 
         header('location:'.base_url().'users/viewuser?id='.$_POST['user_id']);
     }
-
+    
     public function create(){
         $this->loadhelper();
         $this->load->library('session');
@@ -301,7 +287,7 @@ class Users extends CI_Controller {
         $this->form_validation->set_rules('gender', 'Gender', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
         $this->form_validation->set_rules('password', 'Password', 'required|max_length[20]');
-
+        
         $this->form_validation->set_message('max_length', '%s: the maximum characters is %s');
         $this->form_validation->set_rules('vpassword', 'Confirm Password', 'required|matches[password]');
 
@@ -310,7 +296,7 @@ class Users extends CI_Controller {
                 $_SESSION['error-message'] = validation_errors();
         }
         else
-        {
+        {   
             $data = [
                 'br_id' => $_POST['branch'],
                 'ustype_id' => $_POST['usertype'],
@@ -329,7 +315,7 @@ class Users extends CI_Controller {
         }
 
         header('location:'.base_url().'users');
-    }
+    } 
     protected function loadhelper()
     {
         $this->load->database();

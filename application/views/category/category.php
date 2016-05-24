@@ -11,7 +11,7 @@
                 <hr>
                 <?php if($this->session->userdata('is_admin')): ?>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#categoryModal">Add New Category <i class="fa fa-plus"></i></button>
-                <?php endif; ?>  
+                <?php endif; ?>
                       <div class="table-responsive dataTable_wrapper table-product">
                           <table id="photo-list" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                             <thead>
@@ -34,8 +34,10 @@
                                      <div class="col-md-3" id="edit-holder[<?php echo $num ?>]" hidden>
                                            <input type="text" class="form-control" value="<?php echo $category->cat_name ?>" id="edit[<?php echo $num ?>]">
                                        </div>
+                                     <!--  <?php if($this->session->userdata('is_admin')): ?>
                                        <span class="pull-right"><a href="#" class="btn btn-link" data-toggle="modal" data-target="#deletecatModal" v-on:click="getIdToDelete('<?php echo $category->cat_id ?>')"><i class="fa fa-trash"></i> delete</a> </span>
-                                       <span class="pull-right"><a href="<?php echo base_url() ?>category/view?id=<?php echo $category->cat_id ?>" class="btn btn-link"><i class="fa fa-eye"></i> view</a></span>
+                                       <?php endif; ?> !-->
+                                        <span class="pull-right"><a href="<?php echo base_url() ?>category/view?id=<?php echo $category->cat_id ?>" class="btn btn-link"><i class="fa fa-eye"></i> view</a></span>
                                    </td>
                                </tr>
                             <?php $num++; endforeach; ?>
@@ -46,24 +48,6 @@
             </div>
         </div>
     </div>
- <div class="modal fade" id="deletecatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Delete?</h4>
-          </div>
-          <div class="modal-body">
-             Are you sure you want to delete this category? 
-             <p> All product under this category will also be deleted. </p>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Cancel</span></button>
-              <a href="<?php echo base_url('category/trash/{{idToDelete}}') ?>>" class="btn btn-primary pull-right">Yes</a>
-          </div>
-        </div>
-      </div>
- </div>
    <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
