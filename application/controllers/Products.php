@@ -51,11 +51,42 @@ class Products extends CI_Controller {
             'categories'  => $categories,
             'products'    => $products,
         ];
-		$this->load->view('template\header',  $data);
-        $this->load->view('products\products',  $data);
-        $this->load->view('template\footer',  $data);
+			  $this->load->view('template/header',  $data);
+        $this->load->view('products/products',  $data);
+        $this->load->view('template/footer',  $data);
 	}
-
+			public function updateProductQuantity()
+		 {
+					$this->loadhelper();
+					$products = $this->db->query('SELECT * from products');
+					if($products->num_rows() != 0):
+						$x = 0;
+						$productWithSmallQuantity = [];
+						foreach($products->result() as $product):
+							$xx = $this->checkQuantity($product->pr_id, $product->pr_quantity);
+							if($xx < 20){
+										$productWithSmallQuantity[$x] = $product;
+							}
+							$x++;
+						endforeach;
+					endif;
+					$prds = $productWithSmallQuantity;
+					$data = [
+						 'prds' => $prds,
+					];
+					$this->load->view('template/header',  $data);
+					$this->load->view('category/categoryaddquantity', $data);
+	        $this->load->view('template/footer',  $data);
+		 }
+			protected function checkQuantity($pr_id, $pr_quantity){
+				$this->load->database();
+				$items = $this->db->query('SELECT * from items where pr_id = '. $pr_id);
+				$total_item_quantity = 0;
+				foreach($items->result() as $item):
+						$total_item_quantity =  $total_item_quantity + $item->item_quantity;
+				endforeach;
+				 return $pr_quantity - $total_item_quantity;
+			}
     public function create(){
         $this->loadhelper();
 
@@ -148,9 +179,9 @@ class Products extends CI_Controller {
             'categories'    => $categories,
             'cat_name'      => $cat_name,
         ];
-		$this->load->view('template\header',  $data);
-        $this->load->view('products\productview',  $data);
-        $this->load->view('template\footer',  $data);
+		$this->load->view('template/header',  $data);
+        $this->load->view('products/productview',  $data);
+        $this->load->view('template/footer',  $data);
     }
 
     public function update()
@@ -203,6 +234,27 @@ class Products extends CI_Controller {
             return true;
         }
    }
+	 public function updateTheQuantity()
+	 {
+		 $this->loadhelper();
+		 $pr_id = $this->input->post('pr_id');
+		 $quantityToAdd = $this->input->post('quantityToAdd');
+		 for($i = 0 ; $i < count($pr_id) ; $i++):
+			 $sql = $this->db->query("SELECT * from products where pr_id = ".$pr_id[$i]);
+			 $rows = $sql->row();
+
+		  $where = "pr_id = ".$pr_id[$i];
+		  $data = [
+		 			 'pr_quantity' => $pr_quantity + $quantityToAdd[$i],
+		  ];
+		  $this->db->update('products', $data, $where);
+
+		 endfor;
+
+		 $_SESSION['success-message']=" Product Updated";
+
+		 header('location: '.base_url().'products/view?id='.$pr_id);
+	 }
 		public function updateQuantity()
 		{
 			$this->loadhelper();

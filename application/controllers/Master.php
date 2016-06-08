@@ -22,15 +22,14 @@ class Master extends CI_Controller {
 	public function index()
 	{
         $this->load->helper(['form', 'url']);
-       $this->load->library('session');
-
-         $this->is_logged_in();
+        $this->load->library('session');
+        $this->is_logged_in();
 				$data = [
 					'is_in_login' => true,
 				];
 
 				header('Access-Control-Allow-Origin: *');
-		$this->load->view('template\header');
+				$this->load->view('template\header');
         $this->load->view('auth\login');
 
         $this->load->view('template\footer', $data);

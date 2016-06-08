@@ -19,10 +19,6 @@ class Auth extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 
- public function sessionexpired(){
-	  $this->load->library('session');
-		 $_SESSION['error-message'] = "Your Session has expired!";
- }
     public function password_check($str)
     {
        if (preg_match('#[0-9]#', $str) && preg_match('#[a-zA-Z]#', $str)) {

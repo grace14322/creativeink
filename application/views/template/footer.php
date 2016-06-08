@@ -1,3 +1,24 @@
+<pre>
+  {{ productWithLowItem | json }}
+</pre>
+<div class="modal fade" id="notifModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       </div>
+       <div class="modal-body">
+           <div class="form">
+               <div class="form-group">
+                   <label for="category">Notification</label>
+                   <input type="text" class="form-control" name="categoryname" />
+               </div>
+           </div>
+       </div>
+       <div class="modal-footer">
+          <a class="btn btn-primary">Add now <i class="fa fa-check"></i></a>
+       </div>
+     </div>
+   </div>
+ </div>
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -137,8 +158,8 @@ $(document).ready(function() {
       //      oPanel.innerHTML = (IDLE_TIMEOUT - _idleSecondsCounter) + "";
       if (_idleSecondsCounter >= IDLE_TIMEOUT) {
           window.clearInterval(_idleSecondsTimer);
-          alert("Time expired!");
-          document.location.href = "logout";
+  //        alert("Time expired!");
+          document.location.href = "<?php echo base_url('logout') ?>";
       }
   }
 </script>
@@ -152,10 +173,20 @@ $(document).ready(function() {
         el:'body',
 
         ready:function(){
-            this.getcategories();
-            this.getproducts();
+            self = this;
+            self.getcategories();
+            self.getproducts();
+            setInterval(function(){
+             $.get('<?php echo base_url('notifyproduct') ?>',function(result){
+                self.productWithLowItem = JSON.parse(result);
+                $('#notifybaloon').tooltip('show')
+             })
+            },1000)
+
         },
         data:{
+            productWithLowItem: [],
+            countLowItem:0,
             total:0,
             items:[],
             tQuantity:'',
@@ -186,8 +217,18 @@ $(document).ready(function() {
 
                 return total.toFixed(2) ;
             }
+          
        },
         methods:{
+           countTheLowItem:function(){
+              this.countLowItem += 1;
+              return this.countLowItem;
+           },
+           getAvailableQuantity:function(pr_id, pr_quantity){
+             this.$http.get('<?php echo base_url('getAvailableQuantity') ?>/'+pr_id+'/'+pr_quantity,function(result){
+                return 'asasd' + result;
+             });
+           },
            getproducts:function(){
              this.$http.get('<?php echo base_url('transaction/getProducts') ?>',function(result){
                 this.products = result;
@@ -381,6 +422,9 @@ $('body').removeAttr('style');
             }
         }
     })
+</script>
+<script type="text/javascript">
+
 </script>
 </body>
 

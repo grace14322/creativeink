@@ -8,13 +8,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                
+
                 <ul class="left-nav">
                     <li class="brand-logo">
                         <img src="<?php echo base_url() ?>img/logo.png" alt="" class="img-responsive" />
                     </li>
                     <li>
-                       Creative Ink Printing & Manufacturing Company  
+                       Creative Ink Printing & Manufacturing Company
                     </li>
                 </ul>
             </div>
@@ -26,7 +26,7 @@
                           <?php $hidden = 'hidden'; ?>
                       <?php endif; ?>
                  <li class="<?php echo $hidden ?>" class="logout"><a style="    margin-top: 5px;" href="#" data-toggle="modal" data-target="#logoutModal"><i class="glyphicon glyphicon-off"></i> Log out</a></li>
-            </ul>    
+            </ul>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
