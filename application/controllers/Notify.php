@@ -12,7 +12,7 @@ class Notify extends CI_Controller {
         $productWithSmallQuantity = [];
         foreach($products->result() as $product):
           $xx = $this->checkQuantity($product->pr_id, $product->pr_quantity);
-          if($xx < 20){
+          if($xx <= 20){
                 $productWithSmallQuantity[$x] = $product;
           }
           $x++;
@@ -27,7 +27,7 @@ class Notify extends CI_Controller {
 	{
 			echo $this->checkQuantity($pr_id, $pr_quantity);
 	}
-
+																							//10
   protected function checkQuantity($pr_id, $pr_quantity){
     $this->load->database();
     $items = $this->db->query('SELECT * from items where pr_id = '. $pr_id);
@@ -35,6 +35,7 @@ class Notify extends CI_Controller {
     foreach($items->result() as $item):
         $total_item_quantity =  $total_item_quantity + $item->item_quantity;
     endforeach;
+							//180            //37
      return $pr_quantity - $total_item_quantity;
   }
   protected function loadhelper(){

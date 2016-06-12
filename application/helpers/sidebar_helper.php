@@ -4,6 +4,7 @@
 <!--                          <img src="https://avatars.discourse.org/letter/b/f98200/64.png" alt="" class="img-responsive">-->
       </div>
       <div class="col-xs-8">
+        <?php if($this->session->userdata('ustype_id') == 1): ?>
           <p>
             <div class="dropdown" id="notifybaloon" data-title="You have notification!">
                 <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
@@ -17,11 +18,12 @@
                   <li class="divider"></li>
                      <div class="notifications-wrapper">
                        <a class="content" href="<?php echo base_url() ?>products/view?id={{ p.pr_id }}" v-for="p in productWithLowItem">
+                         {{ counterThis() }}
                          <div class="notification-item">
                           <h4 class="item-title">{{ p.pr_name }}</h4>
-                          <p class="item-info">this product is {{ p.pr_quantity }} item(s) left. need to add more items</p>
+                          <p class="item-info">this product is <span id="itmx{{ counterx }}"></span>{{ getAvailableQuantity(p.pr_id,p.pr_quantity, 'itmx' + counterx) }} item(s) left. need to add more items</p>
                         </div>
-
+                        {{ countNotif() }}
                       </a>
                        </div>
                   <li class="divider"></li>
@@ -30,6 +32,11 @@
 
               </div>
           </p>
+        <?php else: ?>
+          <p>
+             <i class="fa fa-user"></i> <?php echo $this->session->userdata('firstname'); ?> <?php echo $this->session->userdata('lastname');  ?>
+          </p>
+        <?php endif; ?>
           <p><i class="fa fa-thumb-tack fa-fw"></i> <?php echo $this->session->userdata('usertype');  ?></p>
       </div>
   </div>

@@ -179,12 +179,17 @@ $(document).ready(function() {
             setInterval(function(){
              $.get('<?php echo base_url('notifyproduct') ?>',function(result){
                 self.productWithLowItem = JSON.parse(result);
-                $('#notifybaloon').tooltip('show')
+                if(self.showedballoon != 1){
+                  $('#notifybaloon').tooltip('show')
+                  self.showedballoon = 1;
+                }
              })
             },1000)
-
         },
         data:{
+            showedballoon:0,
+            counterx:0,
+            notifTotal:0,
             productWithLowItem: [],
             countLowItem:0,
             total:0,
@@ -216,16 +221,29 @@ $(document).ready(function() {
               }
 
                 return total.toFixed(2) ;
+            },
+            filteredproducts:function(){
+                return this.$eval('products | filterBy searchQuery');
             }
-          
+
        },
         methods:{
+           counterThis:function(){
+             counterx++;
+           },
+           countNotif:function(){
+              var self = this;
+              notifTotal++;
+
+           },
            countTheLowItem:function(){
               this.countLowItem += 1;
               return this.countLowItem;
            },
-           getAvailableQuantity:function(pr_id, pr_quantity){
+           getAvailableQuantity:function(pr_id, pr_quantity, counter){
              this.$http.get('<?php echo base_url('getAvailableQuantity') ?>/'+pr_id+'/'+pr_quantity,function(result){
+                console.log(result);
+                $('#'+counter).append(result);
                 return 'asasd' + result;
              });
            },

@@ -8,17 +8,26 @@ window.onbeforeunload = function() {
             <div class="col-md-8">
                <h3 class="title-header">Menu</h3>
                <div class="row">
-                 <div class="col-xs-3">
-                   <span>Select Category:</span>
-                   <select class="form-control" name="" v-model="selcat">
-                        <option value="0" selected>All</option>
-                               <option v-for="c in categories"  value="{{ c.cat_id }}">{{ c.cat_name }}</option>
-                   </select>
+                 <div class="col-xs-12">
+                   <div class="row">
+                      <div class="col-md-6">
+                        <span>Select Category:</span>
+                        <select class="form-control" name="" v-model="selcat">
+                             <option value="0" selected>All</option>
+                                    <option v-for="c in categories"  value="{{ c.cat_id }}">{{ c.cat_name }}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <span>Search Product:</span>
+                          <input v-model="searchQuery" class="form-control">
+                      </div>
+                   </div>
+
                  </div>
                </div>
                <hr>
                 <div class="product-menu-list row">
-                    <div v-for="p in products| filterProduct selcat" class="pointer product Aligner col-xs-2" v-on:click="prepareItem(p.pr_id)">
+                    <div v-for="p in filteredproducts| filterProduct selcat" class="pointer product Aligner col-xs-2" v-on:click="prepareItem(p.pr_id)">
                         <div class="product-name" >
                             <p class="text-center">{{ p.pr_name }}</p>
                         </div>

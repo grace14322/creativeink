@@ -157,7 +157,9 @@ a { outline: none !important; }
 
 .glyphicon-circle-arrow-right { margin-left: 10px; }
 
-.notification-heading, .notification-footer { padding: 2px 10px; }
+#dLabel { color: #1f1f1f; }
+
+#dLabel:hover, #dLabel:focus { text-decoration: none; }
 
 .dropdown-menu.divider { margin: 5px 0; }
 
@@ -166,5 +168,15 @@ a { outline: none !important; }
 .notifications a.content { text-decoration: none; background: #ccc; }
 
 .notification-item { padding: 10px; margin: 5px; background: #ccc; border-radius: 4px; }
+
+.red-tooltip + .tooltip > .tooltip-inner { background-color: #f00; }
+
+.red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color: #f00; background-color: transparent; }
+
+.tooltip.top .tooltip-arrow { border-top-color: #f00; }
+
+.tooltip-inner { background: #F00; }
+
+.tooltip-arrow { border-bottom-color: #F00 !important; }
 
 /*# sourceMappingURL=style.css.map */
