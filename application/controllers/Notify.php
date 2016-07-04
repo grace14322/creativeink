@@ -13,6 +13,7 @@ class Notify extends CI_Controller {
         foreach($products->result() as $product):
           $xx = $this->checkQuantity($product->pr_id, $product->pr_quantity);
           if($xx <= 20){
+						    $product->quantityLeft = $xx;
                 $productWithSmallQuantity[$x] = $product;
           }
           $x++;

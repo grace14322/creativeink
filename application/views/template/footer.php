@@ -185,6 +185,7 @@ $(document).ready(function() {
                 }
              })
             },1000)
+            self.checkbasket();
         },
         data:{
             showedballoon:0,
@@ -228,6 +229,13 @@ $(document).ready(function() {
 
        },
         methods:{
+           checkbasket:function(){
+               this.$http.get('checkbasket', function(res){
+                if(res != "")
+              this.items = res;
+               });
+
+           },
            counterThis:function(){
              counterx++;
            },
@@ -242,7 +250,7 @@ $(document).ready(function() {
            },
            getAvailableQuantity:function(pr_id, pr_quantity, counter){
              this.$http.get('<?php echo base_url('getAvailableQuantity') ?>/'+pr_id+'/'+pr_quantity,function(result){
-                console.log(result);
+              //  console.log(result);
                 $('#'+counter).append(result);
                 return 'asasd' + result;
              });
@@ -262,18 +270,44 @@ $(document).ready(function() {
               $('#setQuantity').modal('hide');
               if (this.tQuantity != '' && this.tQuantity != 0) {
                 this.$http.get('<?php echo base_url() ?>transaction/getItem',{pr_id:this.tpr_id,item_quantity:this.tQuantity},function(result){
-                    console.log(result);
+                    //console.log(result);
                       if(result == 0){
                           this.$http.get('<?php echo base_url() ?>transaction/getQuantity', {pr_id:temp_pr_id} ,function(x){
                                 $('#messageContent').html('Only ' + x + ' item(s) available');
                                 $('#messageItem').modal('show');
-                                console.log(x);
+                                //console.log(x);
                                 $('body').removeAttr('style');
                           });
                       }else{
-                        this.items.push(result[0]);
+                        var xx = result[0];
+                        var cc = false;
+                        //console.log(xx);
+                        //console.log(xx.item_id)
+                        var z = 0;
+                      //  console.log(xx.item_id);
+                        for(var i in this.items){
+                            if(this.items[z].item_id == xx.item_id){
+                               cc = true;
+
+                            }
+
+                            //console.log(this.items[z].item_id);
+                             z++;
+                        }
                       }
 
+                      console.log(cc);
+                        if(!cc){
+                          this.items.push(result[0]);
+                          var self = this;
+                          var basket  = self.items;
+                          this.$http.get('addItemToBasket',{basket:basket},function(result){
+                              console.log(result);
+                          })
+                        }else{
+                          $('#messageContent').html('Item Already Added. Click Void If needed.');
+                          $('#messageItem').modal('show');
+                        }
                 });
               }else{
                 $('#messageContent').html('Please! specify how many quantity.');

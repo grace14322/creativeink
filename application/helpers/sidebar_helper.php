@@ -21,7 +21,7 @@
                          {{ counterThis() }}
                          <div class="notification-item">
                           <h4 class="item-title">{{ p.pr_name }}</h4>
-                          <p class="item-info">this product is <span id="itmx{{ counterx }}"></span>{{ getAvailableQuantity(p.pr_id,p.pr_quantity, 'itmx' + counterx) }} item(s) left. need to add more items</p>
+                          <p class="item-info">this product is <span id="itmx{{ counterx }}"></span>{{ p.quantityLeft }} item(s) left. need to add more items</p>
                         </div>
                         {{ countNotif() }}
                       </a>

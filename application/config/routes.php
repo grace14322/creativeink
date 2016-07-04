@@ -49,6 +49,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['addItemToBasket'] = 'Transaction/additemtobasket';
+$route['checkbasket'] = 'Transaction/checkBasket';
 $route['getAvailableQuantity/(:any)/(:any)'] = 'Notify/getAvailableQuantity/$1/$2';
 $route['notifyproduct'] = 'Notify/notifyproduct';
 $route['updateTheQuantity'] = "Products/updateTheQuantity";

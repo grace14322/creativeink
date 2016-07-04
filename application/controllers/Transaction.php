@@ -45,12 +45,16 @@ class Transaction extends CI_Controller {
             $categories = $sql->result();
         }
 				$branch = $this->db->query("SELECT * from branch where br_id = ".$this->session->br_id);
+				if(isset($_SESSION['basket'])){
 
+				}
         $data = [
             'categories'  => $categories,
             'products'    => $products,
 						'branches'		=> $branch->result(),
         ];
+
+
 		$this->load->view('template\header', $data);
         $this->load->view('transaction\transaction', $data);
         $this->load->view('template\footer', $data);
@@ -196,7 +200,21 @@ class Transaction extends CI_Controller {
 					 echo 0;
 				}
 		}
+		public function additemtobasket(){
+			$this->loadhelper();
+				$basket =  $_GET['basket'];
+			 $_SESSION['basket'] = json_encode($basket);
 
+		}
+    public function checkBasket()
+		{
+			$this->loadhelper();
+			if(isset($_SESSION['basket'])){
+				 echo $_SESSION['basket'];
+			}else{
+				 echo "";
+			}
+		}
     protected function loadhelper()
     {
 			  $this->load->helper('date');
